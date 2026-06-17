@@ -1,0 +1,47 @@
+@import url(/Fonts.css);
+
+body{
+    	background:#E8E8E8;
+        width: 100vw;
+}
+.variabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    text-align: center;
+    font-optical-sizing: auto;
+    font-style: normal;
+    
+	font-size: 200px;
+    color:#000000;
+	line-height:1em;
+	font-family: 'Outfit';
+	padding:0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+.char9, .char10 {
+    opacity: 0;
+}
+
+
+
+/* Chars class as helper to see the boarders of each character*/
+.char {
+    /*outline: 1px dashed rgb(255, 255, 255);
+    border-radius: 10px;*/
+    display: inline-block;
+}
+
+.variaFlip {
+    display: flex
+}
