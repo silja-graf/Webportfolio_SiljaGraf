@@ -3,8 +3,6 @@ import { gsap } from "./gsapSetup.js";
 ////////// ANIMATION TIMELINE //////////
 let timeline = gsap.timeline();
 
-gsap.set("#three-canvas", { scale: 0, transformOrigin: "center center" });
-
 // --- REVEAL VARIA BELLA --- //
 // Split Bel and Move Varia to the Left and fade in LA
 timeline.to(".varia", {

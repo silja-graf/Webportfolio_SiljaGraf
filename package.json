@@ -9,10 +9,15 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
     "vite": "^8.0.12"
   },
   "dependencies": {
+    "@pmndrs/vanilla": "^1.25.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
     "gsap": "^3.15.0",
-    "three": "^0.184.0"
+    "three": "^0.184.0",
+    "troika-three-text": "^0.52.4"
   }
 }
