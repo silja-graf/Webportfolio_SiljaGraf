@@ -20,7 +20,6 @@ loader.load( '/assets/GlassBlob.glb', function ( gltf ) {
   });
 
   scene.add( gltf.scene );
-  console.log('blob size:', new THREE.Box3().setFromObject(blob).getSize(new THREE.Vector3()));
 
 }, undefined, function ( error ) {
 
