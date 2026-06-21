@@ -6,4 +6,6 @@ import '/src/styles/splashPage.css';
 import '/src/timeline.js';
 
 // --- THREE --- //
-import '/src/threeSetup.js'
+import '/src/scene/stage.js'
+import '/src/scene/text.js'
+import '/src/scene/blob.js'

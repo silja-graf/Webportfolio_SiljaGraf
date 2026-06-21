@@ -6,7 +6,7 @@ import { Text } from 'troika-three-text';
 // Basic Scene/Camera Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); //https://threejs.org/manual/#en/creating-a-scene
-camera.position.z = 30; // Kamera positionieren
+camera.position.z = 9; // Kamera positionieren
 
 //Reference Canvas and Renderer Setup
 const canvas = document.querySelector('#three-canvas');
@@ -14,17 +14,31 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true }); // can
 renderer.setClearColor(0x000000, 0); // 0 = volle Transparenz
 renderer.setSize( window.innerWidth, window.innerHeight );
 
+// Höhere Auflösung dynamisch auf die Bildschirmgrösse anpassen
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+addEventListener('resize', () => {
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+});
+
 // Licht
 scene.add(new THREE.AmbientLight(0xffffff, 0.2));      // weiches Grundlicht
 const dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(2, 2, 5);
 scene.add(dirLight);
 
+//Adding HDRI Environment for reflections
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
 //Loading text into the scene
 const text = new Text();
 text.text = 'VARIA BELLA';
-text.font = '/fonts/outfit-v15-latin-900.woff2';  // your font in /public/fonts
-text.fontSize = 8;
+text.font = '/fonts/Outfit-Black.ttf';  // load font
+text.fontSize = 4;
 text.position.set(0, 0, -12);   // behind the blob's back (blob reaches ~ -11)
 text.color = 0x000000;
 text.anchorX = 'center';
@@ -32,22 +46,23 @@ text.anchorY = 'middle';
 text.position.set(0, 0, -1);   // behind the blob (blob is at z = 0)
 text.sync();                   // builds the text — must call after setting props
 scene.add(text);
+text.sdfGlyphSize = 128;   // default 64 → schärfere Kanten
+text.sync();
 
 //Mesh Material
 const glassMaterial = new MeshTransmissionMaterial();
+glassMaterial.color = new THREE.Color(0xd582ff);
+glassMaterial.transparent = 0;
 glassMaterial.thickness = 1;            // how much it bends light through
 glassMaterial.roughness = 0;            // 0 = clear, higher = frosted
 glassMaterial.ior = 1.5;                // glass ≈ 1.5
-glassMaterial.chromaticAberration = 0.1; // the rainbow edges
+glassMaterial.chromaticAberration = 0.2; // the rainbow edges
 glassMaterial.anisotropicBlur = 0.1;
 glassMaterial.distortion = 0.5;          // the wobble
-glassMaterial.distortionScale = 0.5;
-glassMaterial.temporalDistortion = 0.2;  // makes the wobble move over time
+glassMaterial.distortionScale = 0.7;
+glassMaterial.temporalDistortion = 0.5;  // makes the wobble move over time
 
-//Adding HDRI Environment for reflections
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
 
 
 //Adding Mesh to scene
@@ -58,7 +73,7 @@ let blob;   // oben, vor dem loader
 loader.load( '/assets/GlassBlob.glb', function ( gltf ) {
 
   blob = gltf.scene;
-  blob.scale.setScalar(1);
+  blob.scale.setScalar(0.5);
   //traverse goes through every object inseide the loaded model
   blob.traverse((child) => {
     if (child.isMesh) {
@@ -81,6 +96,7 @@ const fbo = new THREE.WebGLRenderTarget(512, 512);
 
 function animate(time) {
   if (blob) {
+    //Glas Matrial leicht animieren ergibt illusion einer flüssigen Masse
     glassMaterial.time = time * 0.001;
 
     // photograph the scene behind the glass — on a light bg so black text shows
