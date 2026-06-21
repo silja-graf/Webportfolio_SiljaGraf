@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 //Mesh Material
 export const glassMaterial = new MeshTransmissionMaterial();
-glassMaterial.color = new THREE.Color(0xa834eb);
+// glassMaterial.color = new THREE.Color(0xa834eb);
 glassMaterial.transparent = 0;
 glassMaterial.thickness = 1;            // how much it bends light through
 glassMaterial.roughness = 0;            // 0 = clear, higher = frosted

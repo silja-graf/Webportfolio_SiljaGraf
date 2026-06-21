@@ -40,6 +40,9 @@ function generateWordPlane(text) {
     // --- MESH/MATERIAL/TEXTUR ZUSAMMENSETZEN ---//
     // Plane mit demselben Seitenverhältnis wie das Canvas
     const texture = new THREE.CanvasTexture(canvas);                                        // generiert textur aus canvas
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
     const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });      // nimmt Canvas als Oberflächenmaterial. Setzt es auf transparent, sodass nur Textur (Schrift) sichtbar ist.
     const worldHeight = 3;
     const worldWidth = worldHeight * (canvas.width / canvas.height);                        //Verhältnis von worldHeight zu wordWith ist dasselbe wie jenes der canvas sodass nichts verzogen wird.

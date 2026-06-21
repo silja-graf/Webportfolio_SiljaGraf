@@ -7,5 +7,5 @@ import '/src/timeline.js';
 
 // --- THREE --- //
 import '/src/scene/stage.js'
-import '/src/scene/text.js'
+import '/src/scene/generateText.js'
 import '/src/scene/blob.js'
