@@ -3,7 +3,8 @@ import { renderer } from './stage.js';
 
 // --- REGISTER FONTS--- //
 const FONTS = {
-    Outfit: {url: '/fonts/outfit-v15-latin-900.woff2', weight: '900'}
+    Outfit: {url: '/fonts/outfit-v15-latin-900.woff2', weight: '900'},
+    Barlow: {url: '/fonts/barlow-condensed-v13-latin-regular.woff2', weight:'300'}   
 };
 
 // --- LOAD FONTS --- //

@@ -3,13 +3,13 @@ import * as THREE from 'three';
 
 //Mesh Material
 export const glassMaterial = new MeshTransmissionMaterial();
-// glassMaterial.color = new THREE.Color(0xa834eb);
+glassMaterial.color = new THREE.Color(0xc8c2ff);
 glassMaterial.transparent = 0;
-glassMaterial.thickness = 1;            // how much it bends light through
+glassMaterial.thickness = 2;            // how much it bends light through
 glassMaterial.roughness = 0;            // 0 = clear, higher = frosted
 glassMaterial.ior = 1.5;                // glass ≈ 1.5
-glassMaterial.chromaticAberration = 0.2; // the rainbow edges
+glassMaterial.chromaticAberration = 0.3; // the rainbow edges
 glassMaterial.anisotropicBlur = 0.5;
 glassMaterial.distortion = 0.5;          // the wobble
-glassMaterial.distortionScale = 0.5;
-glassMaterial.temporalDistortion = 0.3;  // makes the wobble move over time
+glassMaterial.distortionScale = 1;
+glassMaterial.temporalDistortion = 0.2;  // makes the wobble move over time

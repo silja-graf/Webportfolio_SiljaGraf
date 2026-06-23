@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { scene, camera, renderer, onFrame } from './stage.js';
 import { glassMaterial } from './materials.js';
+import { varia } from './writeText.js';   // oben ergänzen
 
 //Adding Mesh to scene
 const loader = new GLTFLoader();
@@ -24,29 +25,29 @@ export async function loadBlob(){
 }
 
 // Render-Schleife
-const bgColor = new THREE.Color(0xf4d9ff);   // match your CSS page background
+const bgColor = new THREE.Color(0xfefef5);   // match your CSS page background
 //Unsichtbare Canvas zum rendern
 const fbo = new THREE.WebGLRenderTarget(512, 512);
 
 //Lädt AnimationLoop in update List --> Buffer
 onFrame((time) => {
   if (!blob) return;
-
-  // Glas-Material leicht animieren → Illusion einer flüssigen Masse
   glassMaterial.time = time * 0.001;
-
-  // Szene hinter dem Glas "abfotografieren" – 
-  blob.visible = false;
-  // heller Hintergrund, damit der schwarze Text sichtbar wird
-  scene.background = bgColor;
   
-  //Canvas hinter dem Blob, wo Foto der Brechung entsteht
+  const t = time * 0.001;               // ms → Sekunden (gleiche Umrechnung wie bei glassMaterial.time)
+  blob.position.y = Math.sin(t * 1) * 0.08;   // sanft auf/ab
+
+  // --- Buffer-Pass: nur fotografieren, was GEBROCHEN werden soll ---
+  blob.visible = false;
+  //if (varia) varia.visible = false;   // VARIA NICHT mitfotografieren → keine Brechung
+  scene.background = bgColor;
   renderer.setRenderTarget(fbo);
   renderer.render(scene, camera);
-
-  // dieses Foto dem Glas geben, dann wieder transparent für den echten Render
   glassMaterial.buffer = fbo.texture;
+
+  // --- für den Haupt-Pass alles wiederherstellen ---
   blob.visible = true;
+  if (varia) varia.visible = true;    // VARIA wieder sichtbar (wird oben drauf gezeichnet)
   scene.background = null;
   renderer.setRenderTarget(null);
 });
