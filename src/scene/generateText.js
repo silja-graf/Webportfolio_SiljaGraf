@@ -1,14 +1,31 @@
 import * as THREE from 'three';
-import { scene, renderer } from './stage.js';
+import { renderer } from './stage.js';
 
-const FONT_URL = '/fonts/outfit-v15-latin-900.woff2';
-const WORD_HEIGHT = 1;            // ein Regler für alle Wörter
+// --- REGISTER FONTS--- //
+const FONTS = {
+    Outfit: {url: '/fonts/outfit-v15-latin-900.woff2', weight: '900'}
+};
 
-export let varia = null;          // für Schritt „Animation" exportiert
-export let bella = null;
-export let la = null;
+// --- LOAD FONTS --- //
+const loaded = new Set(); //speichert alle geladenen fonts in einem Set
+async function ensureFont(family) {
+    if (loaded.has(family)) return;
+    const f = FONTS[family];
+    try{
+        const font = new FontFace(family, `url(${f.url})`, { weight: f.weight });
+        await font.load();
+        document.fonts.add(font);
+        loaded.add(family);
+    } catch (e){
+        console.warn(`Schrift "${family}" konnte nicht geladen werden:`, e);
+    }
+}
 
-function generateWordPlane(text) {
+// --- CREATE WORD PLANE --- //
+export async function generateWordPlane(text, fontFamily, worldHeight) {
+  
+    await ensureFont(fontFamily);          // wartet bis die Schriftart geladen ist
+
     // --- FONT SETTINGS --- //
     const fontPx = 180;
     const padding = 30;
@@ -16,7 +33,7 @@ function generateWordPlane(text) {
     
     // --- CANVA/PINSEL ERSTELLEN --- //
     const measure = document.createElement('canvas').getContext('2d');      // Erst messen, wie breit der Text wird
-    measure.font = `900 ${fontPx}px Outfit`;
+    measure.font = `900 ${fontPx}px ${fontFamily}`;
     const textWidth = Math.ceil(measure.measureText(text).width);
     
     // Legt Pixelanzahl der Canvas, auf welcher gearbeitet wird fest
@@ -32,7 +49,7 @@ function generateWordPlane(text) {
 
     // --- TEXT SCHREIBEN --- //
     brush.fillStyle = '#000000';                      //Füllfarbe setzen
-    brush.font = `900 ${fontPx}px Outfit`;
+    brush.font = `900 ${fontPx}px ${fontFamily}`;
     brush.textAlign = 'center';
     brush.textBaseline = 'middle';
     brush.fillText(text, logicalW / 2, logicalH / 2);   //durch Faktor 2 dividieren, da der Text eingemittet werden soll
@@ -44,7 +61,6 @@ function generateWordPlane(text) {
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });      // nimmt Canvas als Oberflächenmaterial. Setzt es auf transparent, sodass nur Textur (Schrift) sichtbar ist.
-    const worldHeight = 3;
     const worldWidth = worldHeight * (canvas.width / canvas.height);                        //Verhältnis von worldHeight zu wordWith ist dasselbe wie jenes der canvas sodass nichts verzogen wird.
     const geometry = new THREE.PlaneGeometry(worldWidth, worldHeight);                      //erstellt ein Rechteck mit den berechneten Massen
     const plane = new THREE.Mesh(geometry, material);                                       //generiert Mesh indem es Form und Material zusmmenbringt.
@@ -52,35 +68,4 @@ function generateWordPlane(text) {
     return plane;
 }
 
-async function initText() {
-    try{
-        // Schrift sicher laden, BEVOR wir zeichnen
-        const font = new FontFace('Outfit', `url(${FONT_URL})`, { weight: '900' });
-        await font.load();
-        document.fonts.add(font);
-    } catch (e) {
-        console.warn('Outfit konnte nicht geladen werden:', e);
-  }
-
-  // Funktion für jedes Wort aufrufen
-  varia = generateWordPlane('VARIA');
-  bella = generateWordPlane('BELLA');
-  la    = generateWordPlane('LA');
-
-  // Startpositionen (x, y, z) definieren
-  varia.position.set(-4, 0, -1);
-  bella.position.set( 4, 0, -1);
-  la.position.set(0, 0, -1);
-
-  // LA startet unsichtbar – wird in der Animation eingeblendet
-  la.material.opacity = 0;
-
-  //zur scene hinzufügen
-  scene.add(varia, bella, la);
-}
-
-  
-
-
-initText();
 

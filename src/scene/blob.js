@@ -5,13 +5,12 @@ import { glassMaterial } from './materials.js';
 
 //Adding Mesh to scene
 const loader = new GLTFLoader();
+export let blob;   // oben, vor dem loader
 
-let blob;   // oben, vor dem loader
-
-loader.load( '/assets/GlassBlob.glb', function ( gltf ) {
-
+export async function loadBlob(){
+    const gltf = await loader.loadAsync('/assets/GlassBlob.glb');   // wartet bis Asset wirklich geladen ist
   blob = gltf.scene;
-  blob.scale.setScalar(0.5);
+  blob.scale.setScalar(0.3);
   //traverse goes through every object inseide the loaded model
   blob.traverse((child) => {
     if (child.isMesh) {
@@ -20,15 +19,12 @@ loader.load( '/assets/GlassBlob.glb', function ( gltf ) {
   });
 
   scene.add( gltf.scene );
+  return blob
 
-}, undefined, function ( error ) {
-
-  console.error( error );
-
-} );
+}
 
 // Render-Schleife
-const bgColor = new THREE.Color(0xe8e8e8);   // match your CSS page background
+const bgColor = new THREE.Color(0xf4d9ff);   // match your CSS page background
 //Unsichtbare Canvas zum rendern
 const fbo = new THREE.WebGLRenderTarget(512, 512);
 
