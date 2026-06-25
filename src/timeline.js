@@ -9,7 +9,7 @@ let laDisToBel = 6;
 
 
 let belHorizPos = 5;
-let varHorizPos = -5.6;
+let varHorizPos = -6.8;
 
 // --- REVEAL VARIA BELLA --- //
 // Split Bel and Move Varia to the x and fade in LA
@@ -83,9 +83,7 @@ let varHorizPos = -5.6;
 
     //blob wieder verkleinern und positionieren
     timeline.to(blob.scale,     {   x:0.1 , y:0.15 ,   z:0.15,   ease: "circ.in",   duration: 1, delay: 0.5}, ) 
-    
-
-    timeline.to(blob.position,   {  x:12 ,   y:5.7 ,    z:0,     ease: "circ.in",   duration: 0.5, },'<' )
+    timeline.to(blob.position,   {  x:15 ,   y:7.7 ,    z:0,     ease: "circ.in",   duration: 0.5, },'<' )
 
     // bring in Names
     timeline.to(silja.position,  {  x:-5.6, y:4.6 ,   z:0,     duration: 1, },'<' ) 

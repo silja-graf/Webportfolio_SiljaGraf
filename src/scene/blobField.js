@@ -5,16 +5,20 @@ import {glassMaterial} from './materials.js';
 import { makeBlobShadow } from './blobShadow.js';
 
 // --- BLOBS PLATZIEREN --- //
+// timeline.to(blob.scale,     {   x:0.1 , y:0.15 ,   z:0.15,   ease: "circ.in",   duration: 1, delay: 0.5}, ) 
+// timeline.to(blob.position,   {  x:12 ,   y:5.7 ,    z:0,     ease: "circ.in",   duration: 0.5, },'<' )
 const BLOBS = [
 // --- BLOB LINKS --- //
   { x: -7.5,   y:  2.8, scale: 0.15, rotY:  20, rotZ: 80,  squashX: 1.1,  squashY: 0.9 },     //mittler blob oben 
   { x:  -11.5, y:  1,   scale: 0.05, rotY: 180, rotZ: 0,  squashX: 0.8,  squashY: 0.8 },      //mini blob bildrand
   { x: -8.5,   y: -5,   scale: 0.25, rotY:  40, rotZ: -15, squashX: 1.7,  squashY: 1.3 },     //fetter Blob unten
-  { x:  -2.8, y:  -3,   scale: 0.1, rotY: -80, rotZ: 40,  squashX: 1.0,  squashY: 1.0 },      //kleiner blob unten
+  { x:  -2.8, y:  -3,   scale: 0.1, rotY: -80, rotZ: 0,  squashX: 1.0,  squashY: 1.0 },      //kleiner blob unten
 
 // --- BLOB RECHTS ---//
   { x: 8,   y:  0.5, scale: 0.03, rotY:  20, rotZ: -30,  squashX: 1.1,  squashY: 0.9 },     //mittler blob oben links
   { x:  6, y: -2, scale: 0.18, rotY: 120, rotZ: 5,   squashX: 1, squashY: 1 },          //grosser Blob unten rechts
+  { x:  11, y:  5.7,   scale: 0.15, rotY: 0, rotZ: 0,  squashX: 1.0,  squashY: 1.0 },      //kleiner blob unten
+
 ];
 
 const loader = new GLTFLoader();
