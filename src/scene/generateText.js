@@ -23,7 +23,7 @@ async function ensureFont(family) {
 }
 
 // --- CREATE WORD PLANE --- //
-export async function generateWordPlane(text, fontFamily, worldHeight) {
+export async function generateWordPlane(text, fontFamily, worldHeight, fontColor) {
   
     await ensureFont(fontFamily);          // wartet bis die Schriftart geladen ist
 
@@ -49,7 +49,7 @@ export async function generateWordPlane(text, fontFamily, worldHeight) {
     brush.scale (scalePx, scalePx);                                   //Mit ursprünlichem scale multiplizieren, sodass Schrift in richtiger grösse gezeichnet wird
 
     // --- TEXT SCHREIBEN --- //
-    brush.fillStyle = '#000000';                      //Füllfarbe setzen
+    brush.fillStyle = fontColor;                      //Füllfarbe setzen
     brush.font = `900 ${fontPx}px ${fontFamily}`;
     brush.textAlign = 'center';
     brush.textBaseline = 'middle';
