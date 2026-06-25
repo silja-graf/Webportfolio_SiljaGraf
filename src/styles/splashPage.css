@@ -4,40 +4,4 @@ body{
     margin: 0%;
 }
 
-.variabella {
-    font-family: 'Outfit';
-    font-size: clamp(9rem, 10vw, 13.8rem);
-    position: absolute;
-    margin: 0%;
-    padding: 0%;
-}
 
-.varia {
-    top: 35%;
-    left: 23.8%;
-    z-index: 1;
-}
-
-.bella {
-    top: 35%;
-    left: 55.4%;
-    z-index: -1;
-}
-
-.la{
-    opacity: 0;
-    margin: -4.7%;
-        z-index: -1;
-}
-
-#background{
-    opacity: 0;
-}
-
-.three-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;          /* hinter dem HTML */
-  pointer-events: none; /* Klicks gehen durch zum Portfolio */
-}

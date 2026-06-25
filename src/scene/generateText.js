@@ -8,7 +8,7 @@ const FONTS = {
 };
 
 // --- LOAD FONTS --- //
-const loaded = new Set(); //speichert alle geladenen fonts in einem Set
+const loaded = new Set();                   //speichert alle geladenen fonts in einem Set
 async function ensureFont(family) {
     if (loaded.has(family)) return;
     const f = FONTS[family];
@@ -25,12 +25,12 @@ async function ensureFont(family) {
 // --- CREATE WORD PLANE --- //
 export async function generateWordPlane(text, fontFamily, worldHeight, fontColor) {
   
-    await ensureFont(fontFamily);          // wartet bis die Schriftart geladen ist
+    await ensureFont(fontFamily);            // wartet bis die Schriftart geladen ist
 
     // --- FONT SETTINGS --- //
     const fontPx = 180;
     const padding = 30;
-    const scalePx = 3;                  //Faktor um welchen Pixel hochskalliert werden für Scharfe Kanten. Überabtastung --> höhere Auflösung als notwendig
+    const scalePx = 3;                     //Faktor um welchen Pixel hochskalliert werden für Scharfe Kanten. Überabtastung --> höhere Auflösung als notwendig
     
     // --- CANVA/PINSEL ERSTELLEN --- //
     const measure = document.createElement('canvas').getContext('2d');      // Erst messen, wie breit der Text wird
@@ -49,11 +49,11 @@ export async function generateWordPlane(text, fontFamily, worldHeight, fontColor
     brush.scale (scalePx, scalePx);                                   //Mit ursprünlichem scale multiplizieren, sodass Schrift in richtiger grösse gezeichnet wird
 
     // --- TEXT SCHREIBEN --- //
-    brush.fillStyle = fontColor;                      //Füllfarbe setzen
+    brush.fillStyle = fontColor;                                      //Füllfarbe setzen
     brush.font = `900 ${fontPx}px ${fontFamily}`;
     brush.textAlign = 'center';
     brush.textBaseline = 'middle';
-    brush.fillText(text, logicalW / 2, logicalH / 2);   //durch Faktor 2 dividieren, da der Text eingemittet werden soll
+    brush.fillText(text, logicalW / 2, logicalH / 2);                 //durch Faktor 2 dividieren, da der Text eingemittet werden soll
 
     // --- MESH/MATERIAL/TEXTUR ZUSAMMENSETZEN ---//
     // Plane mit demselben Seitenverhältnis wie das Canvas

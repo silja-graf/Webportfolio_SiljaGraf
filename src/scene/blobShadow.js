@@ -7,7 +7,7 @@ const SETTINGS = {
   chroma:        1.7,   // chromatische Aufspaltung (höher = farbiger)
   softness:      0.35,  // Weichheit/Verlauf
   intensity:     0.8,   // Deckkraft (subtil halten)
-  sizeFactor:    1,   // Größe der Schatten-Plane relativ zum Blob-Radius
+  sizeFactor:    1,     // Größe der Schatten-Plane relativ zum Blob-Radius
 };
 
 // Schatten-Richtung: entgegengesetzt zum Licht (einmal berechnet, geteilt)

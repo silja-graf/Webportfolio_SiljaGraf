@@ -10,6 +10,7 @@ export let bel = null;
 export let la = null;
 export let silja = null;
 export let graf = null;
+export let about = null;
 
 async function makeRayWord(text, sharpHeight) {
   const sharp = await generateWordPlane(text, 'Outfit', sharpHeight, '#000000');
@@ -28,30 +29,35 @@ async function makeRayWord(text, sharpHeight) {
 }
 
 async function writeText(){
+    // VARIA BELLA //
     // wartet durch await auf den return und führt dann aus
     varia = await generateWordPlane('VARIA', 'Outfit', 5, '#000000');
-    bel = await generateWordPlane('BEL', 'Outfit', 5, '#000000');
+    bel   = await generateWordPlane('BEL', 'Outfit', 5, '#000000');
     la    = await generateWordPlane('LA', 'Outfit', 5, '#000000');
     // wörter Positionieren
     bel.position.set( 5.8, 0, -1);
     la.position.set(11.8, 0, -1);
     la.material.opacity = 0;    // LA startet unsichtbar – wird in der Animation eingeblendet
-
-    silja = await generateWordPlane('SILJA','Outfit', 7,'#000000');   // text, sharpHeight, angleDeg(°)
-    graf  = await generateWordPlane('GRAF','Outfit', 7,'#000000');   // andere Richtung
-    silja.position.set(-8,10, -1);
-    graf.position.set(8, -10, -1);
-
     // Startpositionen (x, y, z) definieren
     varia.position.set(-3.6, 0, -1);
     varia.renderOrder = 10;            // wird zuletzt gezeichnet → liegt optisch oben
-    //varia.material.depthTest = false;  // ignoriert die Tiefe des Blobs → nie verdeckt
+
+    // SILJA GRAF //
+    silja = await generateWordPlane('SILJA','Outfit', 7,'#000000');   // text, sharpHeight, angleDeg(°)
+    graf  = await generateWordPlane('GRAF','Outfit', 7,'#000000');   // andere Richtung
+    silja.position.set(-8,-10, -1);
+    graf.position.set(8, 10, -1);
+
+    // // ABOUT //
+    // about = await generateWordPlane('ABOUT','Barlow', 1.5,'#505050');  
+    // about.position.set(-12.6,-4, -1);
+    // about.opacity = 0;
     
-    scene.add(varia, bel, la, silja, graf);
+    scene.add(varia, bel, la, silja, graf, about);
     
     const blob = await loadBlob(); //wartet bis blob geladen ist
     await loadBlobField()
-    buildTextTimeline(varia, bel, la, blob, silja, graf);   // jetzt existieren die Wörter garantiert
+    buildTextTimeline(varia, bel, la, blob, silja, graf, about);   // jetzt existieren die Wörter garantiert
 } 
  writeText();
 

@@ -12,4 +12,4 @@ glassMaterial.chromaticAberration = 0.3; // the rainbow edges
 glassMaterial.anisotropicBlur = 0.5;
 glassMaterial.distortion = 0.2;          // the wobble
 glassMaterial.distortionScale = 0.5;
-glassMaterial.temporalDistortion = 0.2;  // makes the wobble move over time
+glassMaterial.temporalDistortion = 0.4;  // makes the wobble move over time
