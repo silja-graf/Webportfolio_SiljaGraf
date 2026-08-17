@@ -4,23 +4,22 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Node.js einrichten
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Abhängigkeiten installieren
         run: npm install
-
       - name: Projekt bauen
         run: npm run build
-
       - name: Auf GitHub Pages deployen
         uses: peaceiris/actions-gh-pages@v3
         with:
