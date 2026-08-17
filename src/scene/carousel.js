@@ -27,35 +27,37 @@ const scrollDot  = document.getElementById('scroll-dot');
 const carousel   = document.getElementById('carousel');
 const track      = document.getElementById('carousel-track');
 
+const BASE = import.meta.env.BASE_URL;
+
 const PROJECTS = [
   { num: 'UX', 
     name: 'HSLU Companion', 
     desc: 'Der treue Begleiter durch den Studienalltag an der HSLU.', 
     color: '#d8d3cc', 
-    img: '/pics/HSLUCompanion/HSLUDash.png',
-    href: '/projekte/01HSLUCompanion.html' },
+    img: `${BASE}pics/HSLUCompanion/HSLUDash.png`,
+    href: `${BASE}projekte/01HSLUCompanion.html` },
 
 
   { num: 'Web', 
     name: 'Webportfolio', 
     desc: 'Ein kreatives Webportfolio, welches als Ausstellungsraum meiner besten Arbeiten dient.', 
     color: '#cdd3d8', 
-    img: 'public/pics/Webportfolio_Titelbild.png',
-    href: '/projekte/02Webportfolio.html' },
+    img: `${BASE}pics/Webportfolio_Titelbild.png`,
+    href: `${BASE}projekte/02Webportfolio.html` },
 
   { num: 'UX/Web', 
     name: 'Didaktikus', 
     desc: 'Ein KI-Agent für Lehrpersonen, konzipiert für die Unterrichtsplanung nach dem Lehrplan 21.', 
     color: '#d3ccd8', 
-    img: 'public/pics/didaktikus_1024.png',
-    href: '/projekte/03Didaktikus.html' },
+    img: `${BASE}pics/didaktikus_1024.png`,
+    href: `${BASE}projekte/03Didaktikus.html` },
 
     { num: 'UX', 
     name: 'Sekundarstufe I', 
     desc: 'Selbsterstelltes Unterrichtsmaterial und didaktische Konzepte, um differenzierten Unterricht auf der Sekundarstufe I zu ermöglichen.', 
     color: '#d3ccd8', 
-    img: 'public/pics/Unterricht/muffo.png',
-    href: '/projekte/04Unterricht.html' },
+    img: `${BASE}pics/Unterricht/muffo.png`,
+    href: `${BASE}projekte/04Unterricht.html` },
 ];
 
 const N = PROJECTS.length;

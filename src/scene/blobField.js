@@ -28,7 +28,7 @@ export async function loadBlobField(){
     scene.add(blobGroup);
 
     //Model laden
-    const modell = await loader.loadAsync('/assets/GlassBlob.glb');
+const modell = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBlob.glb`);
     const original = modell.scene;
 
     BLOBS.forEach((dimensions) => { 
