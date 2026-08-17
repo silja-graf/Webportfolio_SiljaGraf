@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Didaktikus</title>
+<link rel="stylesheet" href="02Webportfolio.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="logo-group">
+      <svg class="topbar-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      <a class="logo" href="/index.html">SG</a>
+    </div>
+    <span class="title">Didaktikus</span>
+    <span class="counter">03 / 03</span>
+  </div>
+
+    <div class="nav-zone nav-zone--left">
+    <a class="nav-arrow" href="./02Webportfolio.html" aria-label="Vorheriges Projekt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+  </div>
+  <div class="nav-zone nav-zone--right">
+    <a class="nav-arrow" href="./01HSLUCompanion.html" aria-label="Nächstes Projekt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+
+  <div class="layout">
+    <div class="title-col">
+      <video class="titleVideo" autoplay muted loop>
+        <!-- TODO: src fehlerhaft, war "type="video.mp4"" -- echten Dateinamen/Pfad eintragen, z.B.: -->
+        <!-- <source src="/vid/Didaktikus.mp4" type="video/mp4"> -->
+      </video>
+
+            <div class="block">
+        <div class="tags">
+         <span class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"/></svg>
+          Einzelarbeit
+        </span>
+          <span class="tag">VS Code</span>
+          <span class="tag">Claude</span>
+          <span class="tag">Bun Server</span>
+        </div>
+        <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+        <div class="footer">
+            <span>&nbsp;2026</span>
+            <span>&nbsp;HSLU Digital Ideation</span>
+            <a href="#">#</a>
+        </div>  
+      </div>
+
+    </div>
+
+    <div class="content-col">
+      <div class="block">
+        <p class="eyebrow">Ideenfindung</p>
+        <span >
+          <img src ="/pics/HSLUCompanion/HSLUGruppenskizzen.png" alt ="Gruppenskizzen" class ="content" id = "gruppenskizzen">
+        </span>
+        <p class="prozess">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+(function () {
+  var leftZone = document.querySelector('.nav-zone--left');
+  var rightZone = document.querySelector('.nav-zone--right');
+  var threshold = 220;
+
+  window.addEventListener('mousemove', function (e) {
+    if (leftZone) leftZone.classList.toggle('is-near', e.clientX < threshold);
+    if (rightZone) rightZone.classList.toggle('is-near', e.clientX > window.innerWidth - threshold);
+  });
+})();
+</script>
+</body>
+</html>

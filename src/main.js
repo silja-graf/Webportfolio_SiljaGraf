@@ -1,9 +1,10 @@
 // --- CSS --- //
 import '/src/styles/fonts.css';
-import '/src/styles/splashPage.css';
+import '/src/styles/styles.css';
 
 // --- GSAP ---//
 import '/src/timeline.js';
+import '/src/scene/carousel.js';
 
 // --- THREE --- //
 import '/src/scene/stage.js'

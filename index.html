@@ -1,21 +1,28 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>threewebportfolio-siljagraf</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- module tag enables to use import to use three.js scripts -->
-<script type="module" src="/src/main.js"></script>
-        <section id = "intropage">
-        <div class = "container">
-            <canvas id="three-canvas">
-                <canvas id = "text-canvas"></canvas>
-            </canvas>
-        </div>
-    </section>
-    </body>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silja Graf</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+  <canvas id="three-canvas"></canvas>
+
+  <div id="carousel">
+    <div id="carousel-track"></div>
+    <div id="carousel-info"></div>
+    <div id="carousel-dots"></div>
+  </div>
+
+  <div id="scroll-hint">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/carousel.js"></script>
+
+</body>
 </html>

@@ -1,13 +1,13 @@
 import { gsap } from "gsap";
 import { blobGroup } from "./scene/blobField";
+import {enableScroll} from "./scene/scrollState.js";
 
 export function buildTextTimeline(varia, bel, la, blob, silja, graf){
 
 // --- ANIMATION TIMELINE --- //
 let timeline = gsap.timeline();
+
 let laDisToBel = 6;
-
-
 let belHorizPos = 5;
 let varHorizPos = -6.8;
 
@@ -87,9 +87,15 @@ let varHorizPos = -6.8;
         // namen einblenden
         timeline.to(silja.position,  {  x:-5.6,  y:4.6 ,    z:0,                        duration: 1, },'<' );
         timeline.to(graf.position,   {  x:5.6,   y:-5.3 ,   z:0,                        duration: 1, },'<' );
-        timeline.to(blob.position,   {  x:15 ,   y:7.7 ,    z:0,     ease: "circ.in",   duration: 0.5, },'<' );
+        timeline.to(blob.position,   {  x:16 ,   y:8.7 ,    z:0,   ease: "back.in",  duration: 0.5, },'<' );
 
+        // scrollen aktivieren
+        timeline.call(() => {
+        enableScroll();
+        document.getElementById('scroll-hint')?.classList.add('is-ready');
+        });
 
+        return timeline;
 }
 
 

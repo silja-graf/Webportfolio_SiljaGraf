@@ -4,6 +4,9 @@ import { buildTextTimeline } from '../timeline.js';
 import {loadBlob} from './blob.js'
 import * as THREE from 'three';
 import { loadBlobField } from './blobField.js';
+import { onFrame } from './stage.js';
+import { scroll, onScrollEnabled, enableScroll, setTarget } from './scrollState.js';
+
 
 export let varia = null;          // export notwendig, um sie danach animieren zu können
 export let bel = null;
@@ -11,6 +14,7 @@ export let la = null;
 export let silja = null;
 export let graf = null;
 export let about = null;
+
 
 async function makeRayWord(text, sharpHeight) {
   const sharp = await generateWordPlane(text, 'Outfit', sharpHeight, '#000000');
@@ -29,6 +33,7 @@ async function makeRayWord(text, sharpHeight) {
 }
 
 async function writeText(){
+    console.log('savedY beim Laden:', sessionStorage.getItem('scrollY'));
     // VARIA BELLA //
     // wartet durch await auf den return und führt dann aus
     varia = await generateWordPlane('VARIA', 'Outfit', 5, '#000000');
@@ -46,20 +51,50 @@ async function writeText(){
     silja = await generateWordPlane('SILJA','Outfit', 7,'#000000');   // text, sharpHeight, angleDeg(°)
     graf  = await generateWordPlane('GRAF','Outfit', 7,'#000000');   // andere Richtung
     silja.position.set(-8,-10, -1);
-    graf.position.set(8, 10, -1);
-
-    // // ABOUT //
-    // about = await generateWordPlane('ABOUT','Barlow', 1.5,'#505050');  
-    // about.position.set(-12.6,-4, -1);
-    // about.opacity = 0;
+    silja.userData.baseY = 4.6;    // Startposition merken
     
-    scene.add(varia, bel, la, silja, graf, about);
+    graf.position.set(8, 10, -1);
+    graf.userData.baseY = -5.3; // Startposition zum kippen merken
+
+    
+    scene.add(varia, bel, la, silja, graf );
+
+    // Wegkippen der Wörter nicht direkt onFrame registrieren, sondern warten:
+    onScrollEnabled(() => {
+      onFrame(() => {
+        if (!silja || !graf) return;
+        const s = Math.min(1, Math.max(0, scroll.y));
+        // silja wegkkippen lassen
+        silja.rotation.x = s * Math.PI / 2;
+        silja.position.y = silja.userData.baseY + s * 2;
+        silja.material.opacity = Math.max(0, 1 - s * 2);
+        // graf wegkippen lassen
+        graf.rotation.x  = -s * Math.PI / 2 * 0.7;
+        graf.position.y  = graf.userData.baseY - s * 1.5;
+        graf.material.opacity = Math.max(0, 1 - s * 2);
+
+      });
+    });
     
     const blob = await loadBlob(); //wartet bis blob geladen ist
     await loadBlobField()
-    buildTextTimeline(varia, bel, la, blob, silja, graf, about);   // jetzt existieren die Wörter garantiert
-} 
- writeText();
+        // Timeline bauen und zurückgeben
+    const tl = buildTextTimeline(varia, bel, la, blob, silja, graf);
+
+    // Von Projektseite zurückgekommen → Animation überspringen
+    const savedY = sessionStorage.getItem('scrollY');
+    if (savedY) {
+      tl.progress(1);                        // sofort ans Ende
+      tl.pause();
+      enableScroll();
+      const y = parseFloat(savedY);
+      scroll.y = y;
+      setTarget(y);
+      sessionStorage.removeItem('scrollY');
+    }
+}
+
+writeText();
 
 
 

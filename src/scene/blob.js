@@ -41,26 +41,18 @@ onFrame((time) => {
   // Materialanimation
   glassMaterial.time = time * 0.001;
   
-  // Mesh animation
-  let hoverEf = false;
-  if (hoverEf == true){
-      const t = time * 0.001;               // ms → Sekunden (gleiche Umrechnung wie bei glassMaterial.time)
-      blob.position.y = Math.sin(t * 1) * 0.08;   // sanft auf/ab
-  }
+   //Hintergrund je nach Phase setzen
+  scene.background = bgLight;
 
   // --- Buffer-Pass: nur fotografieren, was GEBROCHEN werden soll ---
   blob.visible = false;
   
-  //Hintergrund je nach Phase setzen
-  scene.background = bgLight;
-
   renderer.setRenderTarget(fbo);
   renderer.render(scene, camera);
   glassMaterial.buffer = fbo.texture;
 
   // --- für den Haupt-Pass alles wiederherstellen ---
   blob.visible = true;
-  if (varia) varia.visible = true;    // VARIA wieder sichtbar (wird oben drauf gezeichnet)
   scene.background = null;
   renderer.setRenderTarget(null);
 });
