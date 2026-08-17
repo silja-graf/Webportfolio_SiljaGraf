@@ -9,8 +9,7 @@ const loader = new GLTFLoader();
 export let blob;   // oben, vor dem loader
 
 export async function loadBlob(){
-    const gltf = await loader.loadAsync('/assets/GlassBlob.glb');   // wartet bis Asset wirklich geladen ist
-  blob = gltf.scene;
+  const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBlob.glb`);  blob = gltf.scene;
   blob.scale.setScalar(0.3);
   blob.position.set(0,0,0);
   //traverse goes through every object inseide the loaded model
