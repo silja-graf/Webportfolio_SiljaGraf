@@ -1,0 +1,12 @@
+@import "00Frame.css";
+
+.titleVideo {
+  width: 40vw;
+  margin-top: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  text-align: center;
+}
+

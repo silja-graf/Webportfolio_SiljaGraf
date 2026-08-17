@@ -1,0 +1,34 @@
+@import "00Frame.css";
+.title-col {
+width: 40vw;
+}
+
+.AB
+{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0 0;
+}
+
+.sweat{
+  width: 100%;
+  display: flex;
+  margin: 2%;
+  justify-content: space-between;
+  object-position: center;
+}
+
+.muffo{
+  width: 100%;
+  display: flex;
+  margin: 2%;
+  justify-content: space-between;
+  object-position: center;
+}
+
+.content-col{
+  margin-left: 3%;
+}
+.block{
+  width: 35vw;
+}

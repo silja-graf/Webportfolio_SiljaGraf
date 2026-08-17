@@ -1,0 +1,17 @@
+@import "00Frame.css";
+.titleVideo {
+  width: 40vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  text-align: center;
+}
+
+.figmaHell{
+  margin-top: 4%;
+}
+
+
+
+

@@ -1,0 +1,213 @@
+@import url('/src/styles/fonts.css');
+/* PAGE */
+:root {
+  --bg: #FEFFF5;
+  --text-muted: #6F6D62;
+  --border: #E4E1D3;
+  --vw-accent: #8996AC;
+  --strong: #1B1B18;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: "Barlow Condensed", sans-serif;
+}
+.page { max-width: 80%; margin: 0 auto; padding: 0 32px 64px; }
+
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.title-col {
+  position: sticky;
+  z-index: 1;
+  background-color: var(--bg);
+  top: 68px; /* Höhe der Navigation, damit das Bild darunter stehen bleibt statt drüber zu rutschen */
+  flex: 0 0 260px;
+}
+
+.content-col { flex: 1; min-width: 0; margin-left: 5%;}
+.block { margin-bottom: 36px; margin-top: 6%; }
+.eyebrow {
+  font-family: "Outfit", sans-serif;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--strong);
+  margin: 0 0 14px;
+}
+/* TOP NAVIGATION */
+.topbar {
+  font-family: "Outfit", sans-serif;
+  display: flex;
+  position: sticky;
+  z-index: 10;
+  background-color: var(--bg);
+  top: 0;
+  border-bottom: 1px solid var(--border);
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0 20px;
+  color: var(--strong);
+}
+
+.topbar-arrow {
+  width: 12px;
+  height: 12px;
+  color: var(--text-muted);
+}
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.topbar .logo,
+.topbar .title { font-size: 16px; font-weight: 600; text-decoration: none; color: var(--strong); }
+.topbar .counter { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+.backButton{
+  text-decoration: none;
+}
+/* PROJEKT-NAVIGATION (Pfeile links/rechts) */
+.nav-zone {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 220px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.nav-zone--left { left: 0; justify-content: flex-start; padding-left: 20px; }
+.nav-zone--right { right: 0; justify-content: flex-end; padding-right: 20px; }
+
+/* ARROWS */
+.nav-arrow {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(156, 154, 143, 0.16);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.1s ease, transform 0.1s ease, background 0.2s ease, color 0.2s ease;
+}
+.nav-zone.is-near .nav-arrow,
+.nav-arrow:focus-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.nav-arrow:hover {
+  background: rgba(156, 154, 143, 0.3);
+  color: #1B1B18;
+}
+.nav-arrow svg { width: 18px; height: 18px; }
+
+/* DESCRIPTION */
+.tags { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.tag {
+  font-size: 15px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  color: #6F6D62;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tag svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.description {
+  font-size: 16px;
+  font-weight: 550;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  line-height: 1.7;
+  color: #4A4842;
+  margin: 0;
+  max-width: 580px;
+}
+p.prozess {
+  display: block;
+}
+
+.prozess a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.prozess a:visited {
+  color: inherit;
+}
+
+.prozess {
+  display: flex;
+  text-align: justify;
+  justify-content: space-between;
+  line-height: 1.7;
+  hyphens: auto;
+  padding-top: 3%;
+  margin-top: 2%;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3%;
+  margin-top: 2%;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.footer a { color: var(--text-muted); }
+
+.content{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 780px) {
+  .layout { flex-direction: column; }
+  .title-col {
+    position: static;
+    flex: none;
+    width: 100%;
+    top: auto;
+  }
+  .titleVideo { width: 100%; }
+  .nav-zone { width: 70px; }
+  .nav-zone--left { padding-left: 8px; }
+  .nav-zone--right { padding-right: 8px; }
+  .nav-arrow { width: 36px; height: 36px; }
+}
+
+@media (max-width: 480px) {
+  .page { padding: 0 16px 40px; }
+  .layout { gap: 20px; }
+  .topbar .title { font-size: 14px; }
+  .content { width: 100%; }
+}

@@ -1,0 +1,117 @@
+@import "00Frame.css";
+
+.titleVideo {
+  height: 90vh;
+  aspect-ratio: 9 / 18;
+  padding: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: top;
+  text-align: center;
+}
+
+.LoToHi
+{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0 0;
+  height: 50vh;
+}
+#lofi{
+  border-radius: 8%
+}
+
+/* ============================================
+Venn Widget
+   ============================================ */
+.venn-widget__image {
+  width: 35vw;
+  max-width: 320px; /* verhindert, dass es auf sehr breiten Screens riesig wird */
+  border-radius: 10px;
+  background: var(--placeholder);
+}
+.venn-widget__legend {
+  width: 35vw;
+  max-width: 320px; /* gleiche Breite wie das Bild, damit es sauber zentriert bleibt */
+}
+
+.venn-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: inherit;
+}
+.venn-widget__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.venn-widget__image {
+  flex: 0 0 220px;
+  width: 35vw;
+  border-radius: 10px;
+  background: var(--placeholder); /* sichtbar solange kein Bild eingefügt ist */
+}
+
+.venn-widget__legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 220px;
+}
+.venn-widget__btn {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.venn-widget__btn:hover {
+  background: var(--placeholder);
+  color: #4A4842;
+}
+.venn-widget__btn[aria-pressed="true"] {
+  background: var(--vw-accent);
+  border-color: var(--vw-accent);
+  color: #fff;
+}
+.venn-widget__btn:focus-visible {
+  outline: 2px solid var(--vw-accent);
+  outline-offset: 2px;
+}
+
+.venn-widget__result {
+  width: 100%;
+}
+.venn-widget__question {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #4A4842;
+  text-align: left;
+  margin: 0 0 14px;
+}
+.venn-widget__bar-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4A4842;
+  margin-bottom: 2px;
+}
+.venn-widget__bar-value { color: var(--text-muted); }
+.venn-widget__bar-track {
+  background: var(--placeholder);
+  border-radius: 4px;
+  height: 7px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.venn-widget__bar-fill {
+  height: 100%;
+  background: var(--vw-accent);
+  border-radius: 4px;
+}
