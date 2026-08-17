@@ -1,8 +1,7 @@
 import { gsap } from 'gsap';
 import { scroll, onScrollEnabled } from '/src/scene/scrollState.js';
 import { onFrame } from '/src/scene/stage.js';
-import { blobGroup, copies } from '/src/scene/blobField.js'; 
-import { blob } from '/src/scene/blob.js';  
+import { copies } from '/src/scene/blobField.js';
 
 // --- SCROLL-SPERRE während der Intro-Animation ---
 let scrollLocked = true;
@@ -22,7 +21,11 @@ window.addEventListener('keydown', (e) => {
   if (keys.includes(e.key)) e.preventDefault();
 }, { capture: true });
 
+// --- DOM-Referenzen ---
 const scrollHint = document.getElementById('scroll-hint');
+const scrollDot  = document.getElementById('scroll-dot');
+const carousel   = document.getElementById('carousel');
+const track      = document.getElementById('carousel-track');
 
 const PROJECTS = [
   { num: 'UX', 
@@ -56,8 +59,12 @@ const PROJECTS = [
 ];
 
 const N = PROJECTS.length;
-const carousel = document.getElementById('carousel');
-const track    = document.getElementById('carousel-track');
+
+// --- State ---
+let isExiting = false;
+let carouselAnim   = 0;
+let carouselTarget = 0;
+let carouselActive = false;
 
 // --- Blob-Titel entfernen, Info-Block rechts neben der Karte ---
 const infoBlock = document.createElement('div');
@@ -75,7 +82,44 @@ const dots = PROJECTS.map((_, i) => {
   return d;
 });
 
-let isExiting = false;
+function updateInfo(idx, frac) {
+  const p = PROJECTS[idx];
+  infoBlock.style.opacity = String(Math.max(0, 1 - frac * 4));
+  infoBlock.innerHTML = `
+    <span class="info-num">${p.num}</span>
+    <h2 class="info-name">${p.name}</h2>
+    <p class="info-desc">${p.desc}</p>
+  `;
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+function layoutCards(ca) {
+  cards.forEach((card, i) => {
+    const rel = i - ca;
+    const abs = Math.abs(rel);
+
+    if (abs > 1.2) {
+      card.style.opacity = '0';
+      card.style.pointerEvents = 'none';
+      return;
+    }
+
+    const z       = rel < 0 ? 0 : -300 * rel;
+    const scale   = 1 - Math.max(0, rel) * 0.28;
+    const opacity = rel < 0
+      ? Math.max(0, 1 + rel * 4)
+      : Math.max(0, 1 - rel * 1.2);
+
+    card.style.transform     = `translateZ(${z}px) scale(${scale})`;
+    card.style.opacity       = String(opacity);
+    card.style.pointerEvents = (carouselActive && abs < 0.3) ? 'auto' : 'none';
+    card.style.zIndex        = String(Math.round(100 - abs * 10));
+  });
+
+  const activeIdx = Math.min(N - 1, Math.max(0, Math.round(ca)));
+  const frac = Math.abs(ca - activeIdx);
+  updateInfo(activeIdx, frac);
+}
 
 function playExitAnimation(href, cardElement) {
   isExiting = true;
@@ -124,13 +168,6 @@ function playExitAnimation(href, cardElement) {
 
   tl.to('#carousel-info', { opacity: 0, duration: 0.3 }, 0);
   tl.to('#carousel-dots', { opacity: 0, duration: 0.3 }, 0);
-
-  tl.to(exitOverlay, {
-    opacity: 1,
-    duration: 0.4,
-    ease: 'power1.in',
-    onStart: () => { exitOverlay.style.pointerEvents = 'auto'; },
-  }, 0.7);
 }
 
 const cards = PROJECTS.map((p, i) => {
@@ -155,51 +192,6 @@ card.addEventListener('click', () => {
   track.appendChild(card);
   return card;
 });
-
-let carouselAnim   = 0;
-let carouselTarget = 0;
-let carouselActive = false;
-
-function updateInfo(idx, frac) {
-  const p = PROJECTS[idx];
-  infoBlock.style.opacity = String(Math.max(0, 1 - frac * 4));
-  infoBlock.innerHTML = `
-    <span class="info-num">${p.num}</span>
-    <h2 class="info-name">${p.name}</h2>
-    <p class="info-desc">${p.desc}</p>
-  `;
-  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-}
-
-function layoutCards(ca) {
-  cards.forEach((card, i) => {
-    const rel = i - ca;
-    const abs = Math.abs(rel);
-
-    if (abs > 1.2) {
-      card.style.opacity = '0';
-      card.style.pointerEvents = 'none';
-      return;
-    }
-
-    const z       = rel < 0 ? 0 : -300 * rel;
-    const scale   = 1 - Math.max(0, rel) * 0.28;
-    const opacity = rel < 0
-      ? Math.max(0, 1 + rel * 4)
-      : Math.max(0, 1 - rel * 1.2);
-
-    card.style.transform     = `translateZ(${z}px) scale(${scale})`;
-    card.style.opacity       = String(opacity);
-    card.style.pointerEvents = (carouselActive && abs < 0.3) ? 'auto' : 'none';
-    card.style.zIndex        = String(Math.round(100 - abs * 10));
-  });
-
-  const activeIdx = Math.min(N - 1, Math.max(0, Math.round(ca)));
-  const frac = Math.abs(ca - activeIdx);
-  updateInfo(activeIdx, frac);
-}
-
-const scrollDot = document.getElementById('scroll-dot');
 
 onScrollEnabled(() => {
   scrollLocked = false;
