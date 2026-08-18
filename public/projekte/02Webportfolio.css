@@ -12,6 +12,14 @@
   margin-top: 4%;
 }
 
+.skizze{
+  width: 100%;
+  display: flex;
+  margin: 1%;
+  justify-content: space-between;
+  object-position: center;
+}
+
 
 
 
