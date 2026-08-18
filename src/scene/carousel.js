@@ -35,7 +35,8 @@ const PROJECTS = [
     desc: 'Der treue Begleiter durch den Studienalltag an der HSLU.', 
     color: '#d8d3cc', 
     img: `${BASE}pics/HSLUCompanion/HSLUDash.png`,
-    href: `${BASE}projekte/01HSLUCompanion.html` },
+    href: `${BASE}projekte/01HSLUCompanion.html`,
+    scaleBoost: 1.5 },   // ← neu: 15% grösser als die anderen
 
 
   { num: 'Web', 
@@ -106,8 +107,9 @@ function layoutCards(ca) {
       return;
     }
 
+    const boost   = PROJECTS[i].scaleBoost || 1;   // ← neu: Standard 1, falls nicht gesetzt
     const z       = rel < 0 ? 0 : -300 * rel;
-    const scale   = 1 - Math.max(0, rel) * 0.28;
+    const scale   = (1 - Math.max(0, rel) * 0.28) * boost;   // ← boost einmultipliziert
     const opacity = rel < 0
       ? Math.max(0, 1 + rel * 4)
       : Math.max(0, 1 - rel * 1.2);
