@@ -30,6 +30,11 @@ body {
 }
 
 .content-col { flex: 1; min-width: 0; margin-left: 5%;}
+.content {
+  max-width: 100%;
+  height: auto;
+  min-width: 0;   /* verhindert Overflow in Flex-Containern */
+}
 .block { margin-bottom: 36px; margin-top: 6%; }
 .eyebrow {
   font-family: "Outfit", sans-serif;
