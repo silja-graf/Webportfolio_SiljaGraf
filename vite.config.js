@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
 
-export default defineConfig({
-  base: '/Webportfolio_SiljaGraf/',   // mit eigener Domain immer '/'
-})
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/Webportfolio_SiljaGraf/' : '/',
+}))
