@@ -1,0 +1,16 @@
+/* Outfit 900 - Startpage bold */
+@font-face {
+  font-display: swap; 
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 900;
+  src: url('outfit-v15-latin-900.woff2') format('woff2');  /* kein führender Slash */
+}
+/* Barlow Condensed - Startpage thin */
+@font-face {
+  font-display: swap; 
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: url('barlow-condensed-v13-latin-regular.woff2') format('woff2');
+}
