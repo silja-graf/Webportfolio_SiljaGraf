@@ -104,7 +104,7 @@ body {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  opacity: 0.35;      /* immer leicht sichtbar */
+  opacity: 0.35;
   transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
