@@ -107,18 +107,5 @@
   </div>
 
 </div>
-
-<script>
-(function () {
-  var leftZone = document.querySelector('.nav-zone--left');
-  var rightZone = document.querySelector('.nav-zone--right');
-  var threshold = 220;
-
-  window.addEventListener('mousemove', function (e) {
-    if (leftZone) leftZone.classList.toggle('is-near', e.clientX < threshold);
-    if (rightZone) rightZone.classList.toggle('is-near', e.clientX > window.innerWidth - threshold);
-  });
-})();
-</script>
 </body>
 </html>
