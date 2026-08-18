@@ -4,13 +4,13 @@
   font-family: 'Outfit';
   font-style: normal;
   font-weight: 900;
-  src: url('/fonts/outfit-v15-latin-900.woff2') format('woff2'); 
+  src: url('outfit-v15-latin-900.woff2') format('woff2');  /* kein führender Slash */
 }
-/* Barlow Condesed - Startpage thin */
+/* Barlow Condensed - Startpage thin */
 @font-face {
   font-display: swap; 
   font-family: 'Barlow Condensed';
   font-style: normal;
   font-weight: 300;
-  src: url('/fonts/barlow-condensed-v13-latin-regular.woff2') format('woff2');
+  src: url('barlow-condensed-v13-latin-regular.woff2') format('woff2');
 }
