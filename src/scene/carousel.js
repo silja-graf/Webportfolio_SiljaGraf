@@ -36,12 +36,12 @@ const PROJECTS = [
     color: '#d8d3cc', 
     img: `${BASE}pics/HSLUCompanion/HSLUDash.png`,
     href: `${BASE}projekte/01HSLUCompanion.html`,
-    scaleBoost: 1.5 },   // ← neu: 15% grösser als die anderen
+    scaleBoost: 1.5 },  
 
 
   { num: 'Web', 
     name: 'Webportfolio', 
-    desc: 'Ein kreatives Webportfolio, welches als Ausstellungsraum meiner besten Arbeiten dient.', 
+    desc: 'Eine kreative und persönliche Splashpage, die dieses Webportfolio einleitet. Gebaut mit Three.js und GSAP.', 
     color: '#cdd3d8', 
     img: `${BASE}pics/Webportfolio_Titelbild.png`,
     href: `${BASE}projekte/02Webportfolio.html` },
