@@ -1,51 +1,74 @@
 @import url('../fonts/fonts.css');
-/* PAGE */
+
+/* ===== PAGE ===== */
 :root {
   --bg: #FEFFF5;
   --text-muted: #6F6D62;
   --border: #E4E1D3;
   --vw-accent: #8996AC;
   --strong: #1B1B18;
+  --topbar-h: clamp(56px, 8vh, 76px);
 }
+
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   background: var(--bg);
   font-family: "Barlow Condensed", sans-serif;
 }
-.page { max-width: 80%; margin: 0 auto; padding: 0 32px 64px; }
+
+.page {
+  max-width: min(80%, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 32px) clamp(32px, 6vh, 64px);
+}
 
 .layout {
   display: flex;
   align-items: flex-start;
-  gap: 32px;
+  gap: clamp(16px, 2.5vw, 32px);
 }
 
 .title-col {
   position: sticky;
   z-index: 1;
   background-color: var(--bg);
-  top: 68px; /* Höhe der Navigation, damit das Bild darunter stehen bleibt statt drüber zu rutschen */
-  flex: 0 0 260px;
+  top: var(--topbar-h);
+  flex: 0 0 clamp(180px, 20vw, 260px);
 }
 
-.content-col { flex: 1; min-width: 0; margin-left: 5%;}
+.content-col {
+  flex: 1;
+  min-width: 0;
+  margin-left: clamp(0px, 5%, 60px);
+}
+
+/* Bilder/Videos innerhalb der Content-Blöcke */
 .content {
+  width: 100%;
   max-width: 100%;
   height: auto;
   min-width: 0;   /* verhindert Overflow in Flex-Containern */
+  display: block;
 }
-.block { margin-bottom: 36px; margin-top: 6%; }
+
+.block {
+  margin-bottom: clamp(24px, 4vh, 36px);
+  margin-top: clamp(24px, 5vh, 48px);
+}
+
 .eyebrow {
   font-family: "Outfit", sans-serif;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: clamp(10px, 0.9vw, 11px);
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--strong);
   margin: 0 0 14px;
 }
-/* TOP NAVIGATION */
+
+/* ===== TOP NAVIGATION ===== */
 .topbar {
   font-family: "Outfit", sans-serif;
   display: flex;
@@ -56,7 +79,7 @@ body {
   border-bottom: 1px solid var(--border);
   justify-content: space-between;
   align-items: center;
-  padding: 28px 0 20px;
+  padding: clamp(16px, 2.5vh, 28px) 0 clamp(12px, 2vh, 20px);
   color: var(--strong);
 }
 
@@ -65,38 +88,51 @@ body {
   height: 12px;
   color: var(--text-muted);
 }
+
 .logo-group {
   display: flex;
   align-items: center;
   gap: 8px;
   text-decoration: none;
 }
+
 .topbar .logo,
-.topbar .title { font-size: 16px; font-weight: 600; text-decoration: none; color: var(--strong); }
-.topbar .counter { font-size: 12px; font-weight: 400; color: var(--text-muted); }
-.backButton{
+.topbar .title {
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 600;
   text-decoration: none;
+  color: var(--strong);
 }
-/* PROJEKT-NAVIGATION (Pfeile links/rechts) */
+
+.topbar .counter {
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.backButton { text-decoration: none; }
+
+/* ===== PROJEKT-NAVIGATION (Pfeile links/rechts) ===== */
 .nav-zone {
   position: fixed;
   top: 0;
   height: 100vh;
-  width: 220px;
+  width: clamp(70px, 12vw, 220px);
   z-index: 5;
   display: flex;
   align-items: center;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
-.nav-zone--left { left: 0; justify-content: flex-start; padding-left: 20px; }
-.nav-zone--right { right: 0; justify-content: flex-end; padding-right: 20px; }
+.nav-zone--left { left: 0; justify-content: flex-start; padding-left: clamp(8px, 1.5vw, 20px); }
+.nav-zone--right { right: 0; justify-content: flex-end; padding-right: clamp(8px, 1.5vw, 20px); }
 
 /* ARROWS */
 .nav-arrow {
   pointer-events: auto;
-  width: 44px;
-  height: 44px;
+  width: clamp(36px, 3.2vw, 44px);
+  height: clamp(36px, 3.2vw, 44px);
   border-radius: 50%;
   background: rgba(156, 154, 143, 0.1);
   color: var(--text-muted);
@@ -116,13 +152,22 @@ body {
   transform: scale(1.05);
 }
 
-.nav-arrow svg { width: 18px; height: 18px; }
+.nav-arrow svg {
+  width: clamp(15px, 1.3vw, 18px);
+  height: clamp(15px, 1.3vw, 18px);
+}
 
-/* DESCRIPTION */
-.tags { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+/* ===== DESCRIPTION ===== */
+.tags {
+  display: flex;
+  gap: clamp(6px, 0.8vw, 8px);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
 .tag {
-  font-size: 15px;
-  padding: 4px 12px;
+  font-size: clamp(12px, 1.1vw, 15px);
+  padding: clamp(3px, 0.4vw, 4px) clamp(9px, 1vw, 12px);
   border-radius: 16px;
   border: 1px solid var(--border);
   color: #6F6D62;
@@ -130,13 +175,15 @@ body {
   align-items: center;
   gap: 5px;
 }
+
 .tag svg {
   width: 12px;
   height: 12px;
   flex-shrink: 0;
 }
+
 .description {
-  font-size: 16px;
+  font-size: clamp(13px, 1.2vw, 16px);
   font-weight: 550;
   text-align: justify;
   hyphens: auto;
@@ -146,18 +193,11 @@ body {
   margin: 0;
   max-width: 580px;
 }
-p.prozess {
-  display: block;
-}
 
-.prozess a {
-  color: inherit;
-  text-decoration: underline;
-}
+p.prozess { display: block; }
 
-.prozess a:visited {
-  color: inherit;
-}
+.prozess a { color: inherit; text-decoration: underline; }
+.prozess a:visited { color: inherit; }
 
 .prozess {
   display: flex;
@@ -168,7 +208,7 @@ p.prozess {
   padding-top: 3%;
   margin-top: 2%;
   border-top: 1px solid var(--border);
-  font-size: 15px;
+  font-size: clamp(12px, 1.1vw, 15px);
   color: var(--text-muted);
   flex-wrap: wrap;
   gap: 6px;
@@ -180,20 +220,16 @@ p.prozess {
   padding-top: 3%;
   margin-top: 2%;
   border-top: 1px solid var(--border);
-  font-size: 12px;
+  font-size: clamp(10px, 1vw, 12px);
   color: var(--text-muted);
   letter-spacing: 0.02em;
   flex-wrap: wrap;
   gap: 6px;
 }
+
 .footer a { color: var(--text-muted); }
 
-.content{
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
+/* ===== RESPONSIVE BREAKPOINTS (Layout-Struktur) ===== */
 @media (max-width: 780px) {
   .layout { flex-direction: column; }
   .title-col {
@@ -203,15 +239,10 @@ p.prozess {
     top: auto;
   }
   .titleVideo { width: 100%; }
-  .nav-zone { width: 70px; }
-  .nav-zone--left { padding-left: 8px; }
-  .nav-zone--right { padding-right: 8px; }
-  .nav-arrow { width: 36px; height: 36px; }
+  .content-col { margin-left: 0; }
 }
 
 @media (max-width: 480px) {
   .page { padding: 0 16px 40px; }
   .layout { gap: 20px; }
-  .topbar .title { font-size: 14px; }
-  .content { width: 100%; }
 }
