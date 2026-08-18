@@ -10,31 +10,19 @@
   text-align: center;
 }
 
-.LoToHi
-{
+.LoToHi {
   display: flex;
   justify-content: space-between;
-  margin: 0 0 0 0;
+  margin: 0;
   height: 50vh;
 }
-#lofi{
-  border-radius: 8%
+#lofi {
+  border-radius: 8%;
 }
 
 /* ============================================
-Venn Widget
+   Venn Widget
    ============================================ */
-.venn-widget__image {
-  width: 35vw;
-  max-width: 320px; /* verhindert, dass es auf sehr breiten Screens riesig wird */
-  border-radius: 10px;
-  background: var(--placeholder);
-}
-.venn-widget__legend {
-  width: 35vw;
-  max-width: 320px; /* gleiche Breite wie das Bild, damit es sauber zentriert bleibt */
-}
-
 .venn-widget {
   display: flex;
   flex-direction: column;
@@ -48,18 +36,18 @@ Venn Widget
   gap: 12px;
 }
 .venn-widget__image {
-  flex: 0 0 220px;
   width: 35vw;
+  max-width: 320px;
+  flex: 0 0 220px;
   border-radius: 10px;
-  background: var(--placeholder); /* sichtbar solange kein Bild eingefügt ist */
 }
-
 .venn-widget__legend {
+  width: 220px;
+  max-width: 320px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
-  width: 220px;
 }
 .venn-widget__btn {
   background: none;
@@ -72,7 +60,7 @@ Venn Widget
   cursor: pointer;
 }
 .venn-widget__btn:hover {
-  background: var(--placeholder);
+  background: var(--border);
   color: #4A4842;
 }
 .venn-widget__btn[aria-pressed="true"] {
@@ -104,7 +92,7 @@ Venn Widget
 }
 .venn-widget__bar-value { color: var(--text-muted); }
 .venn-widget__bar-track {
-  background: var(--placeholder);
+  background: var(--border);
   border-radius: 4px;
   height: 7px;
   margin-bottom: 8px;
