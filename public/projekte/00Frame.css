@@ -98,25 +98,24 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(156, 154, 143, 0.16);
+  background: rgba(156, 154, 143, 0.1);
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.1s ease, transform 0.1s ease, background 0.2s ease, color 0.2s ease;
+  opacity: 0.35;      /* immer leicht sichtbar */
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
-.nav-zone.is-near .nav-arrow,
+
+.nav-arrow:hover,
 .nav-arrow:focus-visible {
   opacity: 1;
-  transform: scale(1);
-}
-.nav-arrow:hover {
   background: rgba(156, 154, 143, 0.3);
   color: #1B1B18;
+  transform: scale(1.05);
 }
+
 .nav-arrow svg { width: 18px; height: 18px; }
 
 /* DESCRIPTION */
