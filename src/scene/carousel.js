@@ -30,30 +30,30 @@ const track      = document.getElementById('carousel-track');
 const BASE = import.meta.env.BASE_URL;
 
 const PROJECTS = [
-  { num: 'UX', 
+  
+  { num: '01 - Web', 
+    name: 'Varia Bella', 
+    desc: 'Eine kreative und persönliche Splashpage, die dieses Webportfolio einleitet. Gebaut mit Three.js und GSAP.', 
+    color: '#cdd3d8', 
+    img: `${BASE}pics/Webportfolio_Titelbild.png`,
+    href: `${BASE}projekte/01Webportfolio.html` },
+  
+  { num: '02 - UX', 
     name: 'HSLU Companion', 
     desc: 'Der treue Begleiter durch den Studienalltag an der HSLU.', 
     color: '#d8d3cc', 
     img: `${BASE}pics/HSLUCompanion/HSLUDash.png`,
-    href: `${BASE}projekte/01HSLUCompanion.html`,
+    href: `${BASE}projekte/02HSLUCompanion.html`,
     scaleBoost: 1.5 },  
 
-
-  { num: 'Web', 
-    name: 'Webportfolio', 
-    desc: 'Eine kreative und persönliche Splashpage, die dieses Webportfolio einleitet. Gebaut mit Three.js und GSAP.', 
-    color: '#cdd3d8', 
-    img: `${BASE}pics/Webportfolio_Titelbild.png`,
-    href: `${BASE}projekte/02Webportfolio.html` },
-
-  { num: 'UX/Web', 
+  { num: '03 - UX/Web', 
     name: 'Didaktikus', 
     desc: 'Ein KI-Agent für Lehrpersonen, konzipiert für die Unterrichtsplanung nach dem Lehrplan 21.', 
     color: '#d3ccd8', 
     img: `${BASE}pics/didaktikus_1024.png`,
     href: `${BASE}projekte/03Didaktikus.html` },
 
-    { num: 'UX', 
+    { num: '04 - UX', 
     name: 'Sekundarstufe I', 
     desc: 'Selbsterstelltes Unterrichtsmaterial und didaktische Konzepte, um differenzierten Unterricht auf der Sekundarstufe I zu ermöglichen.', 
     color: '#d3ccd8', 

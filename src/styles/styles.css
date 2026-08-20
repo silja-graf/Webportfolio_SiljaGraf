@@ -1,3 +1,7 @@
+html body{
+  margin: 0;
+  padding: 0;
+}
 /* ===== KARUSSELL ===== */
 #carousel {
   position: fixed;
@@ -80,7 +84,7 @@
   align-items: center;
   gap: 6px;
   font-family: 'Outfit', Arial, sans-serif;
-  font-size: clamp(9px, 0.9vw, 11px);
+  font-size: clamp(12px, 2vw, 16px);
   font-weight: 900;
   letter-spacing: 0.06em;
   color: rgba(0,0,0,0.3);
@@ -98,9 +102,9 @@
 #scroll-hint.is-ready.is-hidden { opacity: 0; }
 
 #scroll-hint svg {
-  width: clamp(10px, 1vw, 12px);
-  height: clamp(10px, 1vw, 12px);
-  animation: scrollHintBounce 1.4s infinite ease-in-out;
+  width:clamp(12px, 2vw, 16px);
+  height: clamp(12px, 2vw, 16px);
+  animation: scrollHintBounce 1.2s infinite ease-in-out;
 }
 
 @keyframes scrollHintBounce {
