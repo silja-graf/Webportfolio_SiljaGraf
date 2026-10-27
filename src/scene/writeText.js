@@ -81,16 +81,43 @@ async function writeText(){
         // Timeline bauen und zurückgeben
     const tl = buildTextTimeline(varia, bel, la, blob, silja, graf);
 
+    // Intro gilt als gesehen, sobald es fertig ist (pro Besuch = pro Browser-Tab)
+    tl.eventCallback('onComplete', () => sessionStorage.setItem('introSeen', '1'));
+
+    // Intro beenden: springt ans Ende → die call()-Befehle in der Timeline laufen dabei mit
+    // (Blob-Feld einblenden, enableScroll, Scroll-Hinweis)
+    function skipIntro() {
+      removeSkipListeners();
+      if (tl.progress() < 1) tl.progress(1);
+      tl.pause();
+    }
+    function removeSkipListeners() {
+      window.removeEventListener('skip-intro', skipIntro);
+    }
+
     // Von Projektseite zurückgekommen → Animation überspringen
     const savedY = sessionStorage.getItem('scrollY');
+    // Intro in diesem Besuch schon gesehen → ebenfalls überspringen
+    const introSeen = sessionStorage.getItem('introSeen');
+
     if (savedY) {
-      tl.progress(1);                        // sofort ans Ende
-      tl.pause();
-      enableScroll();
+      skipIntro();                           // sofort ans Ende
+//      tl.progress(1);                        // sofort ans Ende
+//      tl.pause();
+//      enableScroll();                        // nicht mehr nötig: läuft schon über timeline.call() → sonst doppelt
       const y = parseFloat(savedY);
       scroll.y = y;
       setTarget(y);
       sessionStorage.removeItem('scrollY');
+    } else if (introSeen) {
+      skipIntro();
+    } else {
+      // Intro läuft normal ab (nicht mehr per Scroll überspringbar)
+//      window.addEventListener('skip-intro', skipIntro);   // AUSKOMMENTIERT: Überspringen per Scroll entfernt
+      tl.eventCallback('onComplete', () => {
+        sessionStorage.setItem('introSeen', '1');
+        removeSkipListeners();
+      });
     }
 }
 

@@ -10,6 +10,7 @@ function blockScroll(e) {
   if (scrollLocked) {
     e.preventDefault();
     e.stopImmediatePropagation();
+//    window.dispatchEvent(new Event('skip-intro'));   // AUSKOMMENTIERT: Intro ist nicht mehr per Scroll überspringbar
   }
 }
 
@@ -234,4 +235,4 @@ onScrollEnabled(() => {
 
     layoutCards(carouselAnim);
   });
-});
+});
