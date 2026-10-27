@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silja Graf</title>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <script type="module" crossorigin src="/assets/index-BkvakvtG.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BmSNgyfv.css">
+  <script type="module" crossorigin src="/assets/index-VZBs4T-1.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BSGpYwYC.css">
 </head>
 <body>
 
@@ -25,22 +25,45 @@
     <div id="carousel-track"></div>
 </div>
 
-  <!-- KONTAKT nach dem Karussell – Platzhalter in [ECKIGEN KLAMMERN] ersetzen -->
+  <!-- KONTAKT nach dem Karussell -->
   <section id="contact" aria-label="Kontakt">
-    <img class="contact-photo" src="/pics/SiljaGraf_Portrait.webp" alt="Porträt von Silja Graf">
+    <!-- Bild entfernt – es ist jetzt auf der Titelseite -->
+    <!-- <img class="contact-photo" src="/pics/SiljaGraf_Portrait.webp" alt="Porträt von Silja Graf"> -->
     <div class="contact-text">
       <span class="contact-eyebrow">Kontakt</span>
       <h2 class="contact-title">Lass uns reden.</h2>
       <div class="contact-links">
-        <a class="contact-btn contact-btn--dark" href="mailto:[silja.graf@bluewin.ch]">Email</a>
-        <a class="contact-btn" href="[https://www.linkedin.com/in/silja-graf-25a979358/]" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="contact-btn contact-btn--dark" href="mailto:silja.graf@bluewin.ch">Email</a>
+        <a class="contact-btn" href="https://www.linkedin.com/in/silja-graf-25a979358/" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
       <span class="contact-meta">Silja Graf · Luzern · Schweiz</span>
     </div>
   </section>
 
+  <!-- ABOUT-ME-KNOPF oben mittig (blendet am Ende der Intro-Animation ein) -->
+<!--  <a id="about-btn" href="/about.html">About me</a> -->
+  <!-- NEU: About me + Kontakt oben mittig; Kontakt scrollt ans Ende (carousel.js) -->
+  <nav id="top-nav" aria-label="Navigation">
+    <a class="top-btn" href="/about.html">About me</a>
+    <a class="top-btn top-btn--dark" id="contact-jump" href="#contact">Kontakt</a>
+  </nav>
+
+  <!-- SLOGAN unter SILJA GRAF (blendet am Ende der Intro-Animation ein) -->
+<!--  <p id="slogan">Ich verbinde, was Menschen brauchen, mit dem, was technisch möglich ist.</p> -->
+<!--  <p id="slogan">Mich interessiert, was Menschen brauchen,<br>und wie ich es technisch möglich mache.</p> -->
+<!--  <p id="slogan">Mich interessiert, was Menschen brauchen,<br>und wie ich es möglich machen kann.</p> -->
+<!--  <p id="slogan">Neugierig auf Menschen,<br>verliebt in Gestaltung,<br>zuhause im Code.</p> -->
+<!--  <p id="slogan">Neugierig auf Menschen,<br>verliebt in Gestaltung,<br>mit Technik als Werkzeug.</p> -->
+<!--  <p id="slogan">Neugierig auf Menschen,<br>verliebt in Gestaltung,<br>mutig im Ausprobieren.</p> -->
+<!--  <p id="slogan">Neugierig auf Menschen,<br>verliebt in Gestaltung,<br>begeistert von neuer Technik.</p> -->
+  <p id="slogan">Neugierig auf Menschen,<br>verliebt in Gestaltung,<br>mit Technik als Spielplatz.</p>
+
+  <!-- NEU: kleine Rollen-Zeile über SILJA -->
+  <p id="role-line">UX · Vermittlung · Web</p>
+
   <div id="scroll-hint">
-    <span>Scroll</span>
+<!--    <span>Scroll</span> -->
+    <span>Zu meinen Arbeiten</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
 
