@@ -1,0 +1,113 @@
+@import url('projekte/00Frame.css');
+
+/* ===== ABOUT ME – baut auf dem Rahmen der Projektseiten auf ===== */
+
+/* Porträt in der Blob-Form wie früher auf der Kontaktseite */
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 48% 52% 46% 54% / 50% 46% 54% 50%;
+  display: block;
+  margin-bottom: clamp(16px, 3vh, 28px);
+}
+
+.about-lead {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  font-size: clamp(24px, 2.6vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--strong);
+  margin: 0;
+  max-width: 760px;
+}
+
+/* Drei Stärken nebeneinander */
+.strengths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.strength h3 {
+  font-family: "Outfit", sans-serif;
+  font-weight: 900;
+/*  font-size: clamp(22px, 2.2vw, 30px); */
+  font-size: var(--fs-l);                  /* NEU: Schriftstufe aus 00Frame.css */
+  letter-spacing: -0.02em;
+  color: var(--strong);
+  margin: 0 0 8px;
+}
+
+.strength p {
+/*  font-size: clamp(13px, 1.2vw, 16px); */
+  font-size: var(--fs-m);                  /* NEU */
+  line-height: 1.6;
+  color: #4A4842;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* Werdegang als ruhige Liste */
+.cv {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cv li {
+  display: flex;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+/*  font-size: clamp(13px, 1.2vw, 16px); */
+  font-size: var(--fs-m);                  /* NEU */
+  color: #4A4842;
+}
+
+.cv li:last-child { border-bottom: 1px solid var(--border); }
+
+.cv .cv-year {
+  flex: 0 0 90px;
+  color: var(--text-muted);
+}
+
+/* Kontakt-Knöpfe wie auf der Startseite */
+.about-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.about-btn {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+/*  font-size: 15px; */
+  font-size: var(--fs-s);                  /* NEU */
+  text-decoration: none;
+  color: var(--strong);
+  border: 1px solid var(--strong);
+  border-radius: 999px;
+  padding: 12px 24px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.about-btn:hover { background: #F4F3EE; }
+.about-btn--dark { background: var(--strong); color: var(--bg); }
+.about-btn--dark:hover { background: #3A3934; }
+
+/* Kontakt in der linken Spalte unter der Beschreibung */
+.about-links--side {
+  padding-top: 16px;
+  margin-top: 14px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+}
+
+.about-links--side .about-btn {
+/*  font-size: 13px; */
+  font-size: var(--fs-s);                  /* NEU */
+  padding: 9px 18px;
+}

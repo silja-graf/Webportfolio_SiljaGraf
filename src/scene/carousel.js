@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
-import { scroll, onScrollEnabled } from '/src/scene/scrollState.js';
+//import { scroll, onScrollEnabled } from '/src/scene/scrollState.js';
+import { scroll, onScrollEnabled, scrollToValue } from '/src/scene/scrollState.js';   // NEU: scrollToValue für Kontakt-Knopf
 import { onFrame } from '/src/scene/stage.js';
 import { copies } from '/src/scene/blobField.js';
 
@@ -209,6 +210,13 @@ card.addEventListener('click', () => {
 
   track.appendChild(card);
   return card;
+});
+
+// NEU: Kontakt-Knopf oben (index.html) → weich ans Ende zur Kontaktseite scrollen
+document.getElementById('contact-jump')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const contactEnd = 1 + (N - 1) * 0.6 + 0.45 + 0.4;   // = contactStart + volle Einblendung
+  scrollToValue(contactEnd + 0.05);
 });
 
 onScrollEnabled(() => {

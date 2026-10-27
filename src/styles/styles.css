@@ -1,6 +1,7 @@
 html body{
   margin: 0;
   padding: 0;
+  background: #FEFFF5;              /* NEU: leichtes Crème wie die Projektseiten */
 }
 /* ===== KARUSSELL ===== */
 #carousel {
@@ -213,7 +214,9 @@ html body{
 .contact-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+/*  align-items: flex-start; */
+  align-items: center;                /* NEU: ohne Bild alles mittig */
+  text-align: center;
   gap: 16px;
   max-width: 520px;
 }
@@ -257,7 +260,8 @@ html body{
   font-size: 15px;
   text-decoration: none;
   color: #1B1B18;
-  background: #FFFFFF;
+/*  background: #FFFFFF; */
+  background: #FEFFF5;              /* NEU: Crème */
   border: 1px solid #1B1B18;
   padding: 14px 22px;
   border-radius: 999px;
@@ -283,7 +287,8 @@ html body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+/*  background: #FFFFFF; */
+  background: #FEFFF5;              /* NEU: Crème wie die Seite */
   transition: opacity 0.5s ease;
 }
 #loader.is-done { opacity: 0; pointer-events: none; }
@@ -309,3 +314,260 @@ html body{
   letter-spacing: -0.02em;
   color: #1B1B18;
 }
+
+/* ===== SLOGAN unter SILJA GRAF ===== */
+#slogan {
+  position: fixed;
+/*  left: 5.5vw; */
+  left: 10vw;                      /* NEU: gleicher linker Rand wie SILJA GRAF (timeline.js: sideMargin 10 %) */
+/*  top: 81vh; */
+  top: 63vh;                       /* NEU: direkt unter GRAF */
+/*  max-width: 36vw; */               /* zweizeilig, damit rechts Platz fürs Bild bleibt */
+  max-width: 44vw;                 /* NEU: fester Umbruch per <br> im index.html */
+  white-space: nowrap;             /* NEU: nur der feste Umbruch, kein automatischer */
+  line-height: 1.2;
+  margin: 0;
+  z-index: 2;
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 600;
+  font-size: clamp(18px, 3.5vh, 32px);
+  letter-spacing: -0.01em;
+  color: #1B1B18;
+  pointer-events: none;
+  opacity: 0;                      /* blendet am Ende der Timeline ein */
+}
+
+/* ALT: einzelner About-me-Knopf (ersetzt durch #top-nav)
+#about-btn {
+  position: fixed;
+  top: clamp(20px, 4vh, 40px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;                     (mittig)
+  width: fit-content;
+  z-index: 12;
+  padding: 10px 22px;
+  border: 1px solid #1B1B18;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: #1B1B18;
+  text-decoration: none;
+  opacity: 0;                         (blendet ein)
+  pointer-events: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#about-btn.is-ready { pointer-events: auto; }
+#about-btn.is-ready.is-hidden { pointer-events: none; }   (beim Scrollen ausgeblendet)
+#about-btn:hover { background: #1B1B18; color: #FEFFF5; }
+*/
+
+/* ===== NEU: ABOUT ME + KONTAKT oben mittig ===== */
+#top-nav {
+  position: fixed;
+  top: clamp(20px, 4vh, 40px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;                     /* mittig, ohne transform (GSAP animiert y) */
+  width: fit-content;
+  z-index: 12;
+  display: flex;
+  gap: 10px;
+  opacity: 0;                         /* blendet am Ende der Animation ein (timeline.js) */
+  pointer-events: none;
+}
+
+#top-nav.is-ready { pointer-events: auto; }
+#top-nav.is-ready.is-hidden { pointer-events: none; }   /* beim Scrollen ausgeblendet (writeText.js) */
+
+.top-btn {
+  padding: 10px 22px;
+  border: 1px solid #1B1B18;
+  border-radius: 999px;
+/*  background: rgba(255, 255, 255, 0.7); */
+  background: rgba(254, 255, 245, 0.7);   /* NEU: Crème */
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: #1B1B18;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.top-btn:hover { background: #F4F3EE; }
+.top-btn--dark { background: #1B1B18; color: #FEFFF5; }
+.top-btn--dark:hover { background: #3A3934; }
+
+/* ===== NEU: ROLLEN-ZEILE über SILJA ===== */
+#role-line {
+  position: fixed;
+  left: 10vw;                         /* gleicher linker Rand wie SILJA (timeline.js: sideMargin 10 %) */
+  top: 17.5vh;                        /* knapp über SILJA */
+  margin: 0;
+  z-index: 2;
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 600;
+  font-size: clamp(12px, 1.8vh, 16px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6F6D62;
+  opacity: 0;                         /* blendet mit dem Slogan ein (timeline.js) */
+  pointer-events: none;
+}
+
+
+/* =====================================================================
+   NEU: RESPONSIVE FÜR ALLE DESKTOP-GRÖSSEN
+   Überschreibt die festen px-Grössen weiter oben (die bleiben als Fallback stehen).
+   Die 3D-Szene (Name, Bild, Blob) skaliert mit der Fensterhöhe. Damit das HTML
+   (Slogan, Knöpfe, Karussell, Kontakt) im gleichen Verhältnis mitwächst:
+     --u  = 1 % der Höhe, bei schmalen Formaten (unter 16:10) kleiner
+            → gleiche Formel wie k in timeline.js (computeTitleLayout)
+     --lw = genutzte Layoutbreite, bei Ultrawide auf 1.8 × Höhe begrenzt
+            → gleiche Formel wie effW in timeline.js
+   Referenz 1440 × 900: --u = 9px, alles wie vorher.
+   ===================================================================== */
+:root {
+  --u: min(1vh, 0.625vw);
+  --lw: min(100vw, 180vh);
+  --layout-left: calc(50vw - var(--lw) * 0.4);          /* linker Rand von SILJA (10 % der Layoutbreite) */
+}
+
+/* nur Desktop – das Handy-Layout (max-width: 900px) oben bleibt unberührt */
+@media (min-width: 901px) {
+
+  /* --- Titelseite --- */
+  #role-line {
+    left: var(--layout-left);
+    top: calc(50vh - 32.5 * var(--u));                     /* knapp über SILJA */
+    font-size: max(11px, calc(1.8 * var(--u)));
+  }
+
+  #slogan {
+    left: var(--layout-left);
+    top: calc(50vh + 13 * var(--u));                       /* direkt unter GRAF */
+    font-size: max(16px, calc(3.5 * var(--u)));
+    max-width: none;
+    line-height: 1.4;                                      /* NEU: mehr Luft zwischen den Zeilen (vorher 1.2) */
+    letter-spacing: 0;                                     /* NEU: Buchstaben nicht mehr zusammengezogen (vorher -0.01em) */
+  }
+
+  #top-nav {
+    top: max(16px, calc(4 * var(--u)));
+    gap: max(8px, calc(1.1 * var(--u)));
+  }
+
+  .top-btn {
+    font-size: max(13px, calc(1.65 * var(--u)));
+    padding: max(8px, calc(1.1 * var(--u))) max(16px, calc(2.4 * var(--u)));
+  }
+
+  #scroll-hint {
+    right: calc(50vw - var(--lw) / 2 + 6.5 * var(--u));   /* rechter Rand der Layoutbreite */
+/*    font-size: max(12px, calc(1.75 * var(--u))); */
+    font-size: max(14px, calc(2.2 * var(--u)));            /* NEU: grösser */
+  }
+
+  #scroll-hint svg {
+/*    width: max(12px, calc(1.75 * var(--u)));
+    height: max(12px, calc(1.75 * var(--u))); */
+    width: max(14px, calc(2.2 * var(--u)));                /* NEU: grösser */
+    height: max(14px, calc(2.2 * var(--u)));
+  }
+
+  /* --- Karussell --- */
+  #carousel {
+    gap: max(40px, calc(9.6 * var(--u)));
+  }
+
+  #carousel-track {
+    width: max(200px, calc(35 * var(--u)));
+    height: max(300px, calc(55 * var(--u)));
+  }
+
+  #carousel-info {
+/*    width: max(220px, calc(41.5 * var(--u))); */
+    width: max(240px, calc(46 * var(--u)));                /* NEU: etwas breiter für die grössere Beschreibung */
+  }
+
+  .info-num  { font-size: max(14px, calc(2.5 * var(--u))); }
+  .info-name { font-size: max(20px, calc(3.3 * var(--u))); }
+/*  .info-desc { font-size: max(14px, calc(2.5 * var(--u))); } */
+  .info-desc { font-size: max(16px, calc(3 * var(--u))); }   /* NEU: Beschreibung grösser */
+
+  #carousel-dots {
+    bottom: calc(50vh - 29 * var(--u));                    /* knapp unter der Karte */
+    gap: max(8px, calc(1.1 * var(--u)));
+  }
+
+  .carousel-dot {
+    width: max(5px, calc(0.67 * var(--u)));
+    height: max(5px, calc(0.67 * var(--u)));
+  }
+
+  /* --- Kontakt --- */
+  .contact-text {
+    gap: max(14px, calc(1.8 * var(--u)));
+    max-width: max(520px, calc(58 * var(--u)));
+  }
+
+  .contact-eyebrow { font-size: max(12px, calc(1.45 * var(--u))); }
+  .contact-title   { font-size: max(44px, calc(9.6 * var(--u))); }
+  .contact-meta    { font-size: max(12px, calc(1.45 * var(--u))); }
+
+  .contact-links {
+    gap: max(8px, calc(1.1 * var(--u)));
+  }
+
+  .contact-btn {
+    font-size: max(14px, calc(1.65 * var(--u)));
+    padding: max(12px, calc(1.55 * var(--u))) max(20px, calc(2.45 * var(--u)));
+  }
+
+}
+
+
+/* =====================================================================
+   NEU: SCHRIFTGRÖSSEN – nur noch vier Stufen (überschreibt die Werte oben)
+     --t-s  Labels & Knöpfe    (Rollen-Zeile, Knöpfe, «Zu meinen Arbeiten», Nummer, Kontakt-Zeilen)
+     --t-m  Lesetext           (Beschreibung im Karussell)
+     --t-l  Hervorgehoben      (Slogan, Projektname)
+     --t-xl Titel              (Kontakt-Titel)
+   Bei 1440 × 900: 20px / 27px / 36px / 86px
+   ===================================================================== */
+:root {
+  --t-s:  max(14px, calc(2.2 * var(--u)));
+  --t-m:  max(17px, calc(3 * var(--u)));
+  --t-l:  max(22px, calc(4 * var(--u)));
+  --t-xl: max(44px, calc(9.6 * var(--u)));
+}
+
+@media (min-width: 901px) {
+  #role-line        { font-size: var(--t-s); }
+  .top-btn          { font-size: var(--t-s); }
+  #scroll-hint      { font-size: var(--t-s); }
+  #scroll-hint svg  { width: var(--t-s); height: var(--t-s); }
+/*  #slogan           { font-size: var(--t-l); } */
+  #slogan {                                                /* NEU: dünne Schrift als Kontrast zum fetten Namen */
+    font-family: 'Barlow Condensed', Arial, sans-serif;
+    font-weight: 300;
+    font-size: max(24px, calc(4.8 * var(--u)));            /* schmale Schrift → etwas grösser (43px bei 1440 × 900) */
+    line-height: 1.2;
+  }
+
+/*  .info-num         { font-size: var(--t-s); } */
+  .info-num         { font-size: var(--t-m); }              /* NEU: Bereich (Web / UX …) grösser */
+  .info-name        { font-size: var(--t-l); }
+  .info-desc        { font-size: var(--t-m); }
+
+  .contact-eyebrow  { font-size: var(--t-s); }
+  .contact-title    { font-size: var(--t-xl); }
+  .contact-btn      { font-size: var(--t-s); }
+  .contact-meta     { font-size: var(--t-s); }
+}
+

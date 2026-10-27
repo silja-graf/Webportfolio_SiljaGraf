@@ -15,6 +15,18 @@ export function setTarget(val) {
   target = val;
 }
 
+// NEU: weich zu einem Scroll-Wert fahren (z. B. Kontakt-Knopf → ans Ende)
+export function scrollToValue(val, duration = 2.4) {
+  if (!enabled) return;
+  target = val;
+  gsap.to(scroll, {
+    y: target,
+    duration,
+    ease: 'power2.inOut',
+    overwrite: true,
+  });
+}
+
 export function onScrollEnabled(fn) { 
   onScrollCallbacks.push(fn);   // anhängen statt überschreiben
 }
@@ -53,4 +65,4 @@ function onTouchMove(e) {
 
 window.addEventListener('wheel',      onWheel,      { passive: false });
 window.addEventListener('touchstart', onTouchStart, { passive: true  });
-window.addEventListener('touchmove',  onTouchMove,  { passive: true  });
+window.addEventListener('touchmove',  onTouchMove,  { passive: true  });

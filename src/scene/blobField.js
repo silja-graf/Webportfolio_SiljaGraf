@@ -6,6 +6,8 @@ import { makeBlobShadow } from './blobShadow.js';
 import { scroll, onScrollEnabled } from './scrollState.js';
 import { onFrame } from './stage.js';
 
+// ALTE POSITIONEN (auskommentiert)
+/*
 const BLOBS = [
 // --- BLOB LINKS --- //
   { x: -7.5,   y:  2.8, scale: 0.15, rotY:  20, rotZ: 80,  squashX: 1.1,  squashY: 0.9 },    //mittler blob oben 
@@ -17,6 +19,21 @@ const BLOBS = [
   { x: 8,   y:  0.5, scale: 0.03, rotY:  20, rotZ: -30,  squashX: 1.1,  squashY: 0.9 },     //mittler blob oben links
   { x:  6, y: -2, scale: 0.18, rotY: 120, rotZ: 5,   squashX: 1, squashY: 1 },              //grosser Blob unten rechts
   { x:  11, y:  5.7,   scale: 0.15, rotY: 0, rotZ: 0,  squashX: 1.0,  squashY: 1.0 },       //kleiner blob unten
+];
+*/
+
+// NEU: dezent und nur am Rand – kein kleiner Blob liegt auf SILJA, GRAF oder dem Slogan
+const BLOBS = [
+// --- BLOB LINKS --- //
+  { x: -9.6,  y:  4.9, scale: 0.04, rotY: 180, rotZ: 0,   squashX: 0.8,  squashY: 0.8 },    //mini Blob oben links in der Ecke
+  { x: -9.3,  y: -5.8, scale: 0.12, rotY:  40, rotZ: -15, squashX: 1.4,  squashY: 1.1 },    //Blob unten links, halb am Rand (unter dem Slogan)
+  { x: -4.5,  y: -5.4, scale: 0.05, rotY: -80, rotZ: 0,   squashX: 1.0,  squashY: 1.0 },    //kleiner Blob ganz unten
+  { x:  3.6,  y: -5.3, scale: 0.06, rotY:  20, rotZ: -30, squashX: 1.1,  squashY: 0.9 },    //kleiner Blob unten Mitte
+
+// --- BLOB RECHTS ---//
+  { x:  6.9,  y:  3.7, scale: 0.03, rotY:  20, rotZ: -30, squashX: 1.1,  squashY: 0.9 },    //mini Blob oben rechts
+  { x:  8.7,  y: -4.9, scale: 0.14, rotY: 120, rotZ: 5,   squashX: 1,    squashY: 1 },      //Blob unten rechts, halb am Rand
+  { x:  8.8,  y:  5.1, scale: 0.10, rotY: 0,   rotZ: 0,   squashX: 1.0,  squashY: 1.0 },    //Blob oben rechts, halb am Rand
 ];
 
 const loader = new GLTFLoader();
@@ -90,12 +107,19 @@ const modell = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBl
         const contactStart    = 1 + (4 - 1) * 0.6 + 0.45;
         const contactProgress = Math.min(1, Math.max(0, (scroll.y - contactStart) / 0.4));
         const out = contactProgress * contactProgress * 14;      // Strecke nach aussen (beschleunigt)
+        // NEU: RESPONSIVE – x-Positionen mit dem Bildschirmformat mitziehen, damit die Blobs immer am Rand sitzen
+        // (Referenz 16:10; bei 4:3 rücken sie nach innen, bei Ultrawide nach aussen)
+        const xf = (window.innerWidth / window.innerHeight) / 1.6;
 
         copies.forEach((blob) => {
 //        const newX = blob.userData.baseX + blob.userData.driftX * s * 2;
 //        const newY = blob.userData.baseY + blob.userData.driftY * s * 2;
-        const newX = blob.userData.baseX + blob.userData.driftX * s * 2 + blob.userData.dirX * out;   // NEU: + Weg aus dem Bild
-        const newY = blob.userData.baseY + blob.userData.driftY * s * 2 + blob.userData.dirY * out;
+//        const newX = blob.userData.baseX + blob.userData.driftX * s * 2 + blob.userData.dirX * out;
+//        const newY = blob.userData.baseY + blob.userData.driftY * s * 2 + blob.userData.dirY * out;
+        // NEU: beim Karussell nur leicht nach aussen (bleiben am Rand sichtbar), erst beim Kontakt ganz weg
+//        const newX = blob.userData.baseX + blob.userData.driftX * s * 0.35 + blob.userData.dirX * out;
+        const newX = blob.userData.baseX * xf + blob.userData.driftX * s * 0.35 + blob.userData.dirX * out;   // NEU: * xf
+        const newY = blob.userData.baseY + blob.userData.driftY * s * 0.35 + blob.userData.dirY * out;
 
         blob.position.x = newX;
         blob.position.y = newY;

@@ -246,3 +246,37 @@ p.prozess { display: block; }
   .page { padding: 0 16px 40px; }
   .layout { gap: 20px; }
 }
+/* ===== NEU: GROSSE DESKTOP-BILDSCHIRME =====
+   Auf sehr grossen Bildschirmen (z. B. 2560 × 1440) wird die ganze Seite etwas grösser dargestellt,
+   damit Text und Bilder nicht verloren wirken. Gilt für alle Projektseiten und die About-Seite. */
+@media (min-width: 2200px) and (min-height: 1250px) {
+  html { zoom: 1.25; }
+}
+@media (min-width: 3000px) and (min-height: 1600px) {
+  html { zoom: 1.5; }
+}
+
+/* =====================================================================
+   NEU: SCHRIFTGRÖSSEN – nur noch drei Stufen, grösser und angenehmer zu lesen
+   (überschreibt die einzelnen Werte weiter oben; gilt für alle Projektseiten und About)
+     --fs-s  Labels       (Überschriften klein, Zähler, Tags, Fusszeile)
+     --fs-m  Lesetext     (Beschreibung, Prozess-Texte, Titel oben)
+     --fs-l  Überschrift  (z. B. UX / Vermittlung / Web auf der About-Seite)
+   Bei 1440 px Breite: 15px / 19px / 32px
+   ===================================================================== */
+:root {
+  --fs-s: clamp(14px, 1.05vw, 17px);
+  --fs-m: clamp(17px, 1.3vw, 21px);
+  --fs-l: clamp(24px, 2.2vw, 32px);
+}
+
+.eyebrow                       { font-size: var(--fs-s); }
+.topbar .logo,
+.topbar .title                 { font-size: var(--fs-m); }
+.topbar .counter               { font-size: var(--fs-s); }
+.tag                           { font-size: var(--fs-s); }
+.tag svg                       { width: 14px; height: 14px; }
+.description                   { font-size: var(--fs-m); }
+.prozess                       { font-size: var(--fs-m); }
+.footer                        { font-size: var(--fs-s); }
+
