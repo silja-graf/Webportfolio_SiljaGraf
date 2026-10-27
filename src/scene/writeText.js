@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { loadBlobField } from './blobField.js';
 import { onFrame } from './stage.js';
 import { scroll, onScrollEnabled, enableScroll, setTarget } from './scrollState.js';
+import { setProgress, finishLoading } from './loadingScreen.js';   // NEU: Ladeanzeige
 
 
 export let varia = null;          // export notwendig, um sie danach animieren zu können
@@ -36,6 +37,7 @@ async function writeText(){
     console.log('savedY beim Laden:', sessionStorage.getItem('scrollY'));
     // VARIA BELLA //
     // wartet durch await auf den return und führt dann aus
+    setProgress(0.05);   // NEU: Ladeanzeige – Schrift wird geladen
     varia = await generateWordPlane('VARIA', 'Outfit', 5, '#000000');
     bel   = await generateWordPlane('BEL', 'Outfit', 5, '#000000');
     la    = await generateWordPlane('LA', 'Outfit', 5, '#000000');
@@ -58,6 +60,7 @@ async function writeText(){
 
     
     scene.add(varia, bel, la, silja, graf );
+    setProgress(0.15);   // NEU: Ladeanzeige – Wörter sind bereit
 
     // Wegkippen der Wörter nicht direkt onFrame registrieren, sondern warten:
     onScrollEnabled(() => {
@@ -78,6 +81,8 @@ async function writeText(){
     
     const blob = await loadBlob(); //wartet bis blob geladen ist
     await loadBlobField()
+    setProgress(1);              // NEU: alles geladen
+    await finishLoading();       // NEU: Ladeanzeige ausblenden, erst danach startet die Animation
         // Timeline bauen und zurückgeben
     const tl = buildTextTimeline(varia, bel, la, blob, silja, graf);
 

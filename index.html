@@ -8,11 +8,34 @@
 </head>
 <body>
 
+  <!-- LADEANZEIGE vor der Animation (Logik: src/scene/loadingScreen.js) -->
+  <div id="loader" role="progressbar" aria-label="Seite lädt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <svg class="loader-ring" viewBox="0 0 120 120" aria-hidden="true">
+      <circle class="loader-ring-track"    cx="60" cy="60" r="54"></circle>
+      <circle class="loader-ring-progress" cx="60" cy="60" r="54"></circle>
+    </svg>
+    <span class="loader-percent">0%</span>
+  </div>
+
   <canvas id="three-canvas"></canvas>
 
 <div id="carousel">
     <div id="carousel-track"></div>
 </div>
+
+  <!-- KONTAKT nach dem Karussell – Platzhalter in [ECKIGEN KLAMMERN] ersetzen -->
+  <section id="contact" aria-label="Kontakt">
+    <img class="contact-photo" src="%BASE_URL%pics/SiljaGraf_Portrait.webp" alt="Porträt von Silja Graf">
+    <div class="contact-text">
+      <span class="contact-eyebrow">Kontakt</span>
+      <h2 class="contact-title">Lass uns reden.</h2>
+      <div class="contact-links">
+        <a class="contact-btn contact-btn--dark" href="mailto:[silja.graf@bluewin.ch]">Email</a>
+        <a class="contact-btn" href="[https://www.linkedin.com/in/silja-graf-25a979358/]" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <span class="contact-meta">Silja Graf · Luzern · Schweiz</span>
+    </div>
+  </section>
 
   <div id="scroll-hint">
     <span>Scroll</span>

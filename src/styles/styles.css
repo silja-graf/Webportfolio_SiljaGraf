@@ -112,7 +112,7 @@ html body{
   50% { transform: translateY(3px); }
 }
 
-/* ===== SCROLLFORTSCHRITT-PUNKTE ===== */
+/* ===== SCROLLFORTSCHRITT-PUNKTE (ALT: rechts, senkrecht) =====
 #carousel-dots {
   position: fixed;
   right: clamp(16px, 5%, 60px);
@@ -127,6 +127,32 @@ html body{
 .carousel-dot {
   width: clamp(4px, 0.5vw, 5px);
   height: clamp(4px, 0.5vw, 5px);
+  border-radius: 50%;
+  background: rgba(0,0,0,0.15);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.carousel-dot.active {
+  background: rgba(0,0,0,0.5);
+  transform: scale(1.4);
+}
+===== ENDE ALT */
+
+/* ===== SCROLLFORTSCHRITT-PUNKTE – NEU: waagrecht unterhalb der Projekte ===== */
+#carousel-dots {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(48px, 21vh, 210px);       /* knapp unter Karte und Text */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: rgba(0,0,0,0.15);
   transition: background 0.3s, transform 0.3s;
@@ -155,8 +181,131 @@ html body{
     align-items: center;
   }
 
-  #scroll-hint,
-  #carousel-dots {
+  #scroll-hint {          /* #carousel-dots entfernt: Punkte sind jetzt unten mittig */
     right: 12px;
   }
+}
+
+/* ===== KONTAKT nach dem Karussell ===== */
+#contact {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(40px, 6vw, 110px);
+  padding: 0 6vw;
+  opacity: 0;                         /* blendet per Scroll ein (carousel.js) */
+  pointer-events: none;
+  color: #1B1B18;
+}
+
+.contact-photo {
+  width: clamp(220px, 26vw, 380px);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 48% 52% 46% 54% / 50% 46% 54% 50%;   /* organische Blob-Form */
+  box-shadow: 0 30px 70px rgba(27, 27, 24, 0.14);
+  flex-shrink: 0;
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 520px;
+}
+
+.contact-eyebrow {
+  font-family: 'Outfit', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6F6D62;
+}
+
+.contact-title {
+  margin: 0;
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(44px, 6vw, 88px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.contact-desc {
+  margin: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(18px, 1.6vw, 23px);
+  line-height: 1.4;
+  color: #4A4840;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.contact-btn {
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  color: #1B1B18;
+  background: #FFFFFF;
+  border: 1px solid #1B1B18;
+  padding: 14px 22px;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+.contact-btn:hover { background: #F4F3EE; }
+.contact-btn--dark { background: #1B1B18; color: #FEFFF5; }
+.contact-btn--dark:hover { background: #3A3934; }
+
+.contact-meta {
+  margin-top: 6px;
+  font-family: 'Outfit', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6F6D62;
+}
+
+/* ===== LADEANZEIGE vor der Animation ===== */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  transition: opacity 0.5s ease;
+}
+#loader.is-done { opacity: 0; pointer-events: none; }
+
+.loader-ring {
+  width: clamp(110px, 12vw, 150px);
+  height: clamp(110px, 12vw, 150px);
+  transform: rotate(-90deg);               /* Start oben statt rechts */
+}
+.loader-ring-track,
+.loader-ring-progress {
+  fill: none;
+  stroke-width: 3;
+}
+.loader-ring-track    { stroke: #E4E1D3; }
+.loader-ring-progress { stroke: #1B1B18; stroke-linecap: round; }
+
+.loader-percent {
+  position: absolute;
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(22px, 2.2vw, 30px);
+  letter-spacing: -0.02em;
+  color: #1B1B18;
 }

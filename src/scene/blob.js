@@ -3,13 +3,20 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { scene, camera, renderer, onFrame } from './stage.js';
 import { glassMaterial } from './materials.js';
 import { varia } from './writeText.js';   // oben ergänzen
+import { setProgress } from './loadingScreen.js';   // NEU: Ladeanzeige
 
 //Adding Mesh to scene
 const loader = new GLTFLoader();
 export let blob;   // oben, vor dem loader
 
 export async function loadBlob(){
-  const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBlob.glb`);  blob = gltf.scene;
+//  const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBlob.glb`);  blob = gltf.scene;
+  // NEU: Ladefortschritt des Modells an die Ladeanzeige melden (15 % → 90 %)
+  const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBlob.glb`, (e) => {
+    const total = e.lengthComputable ? e.total : 1492572;   // Fallback: Dateigrösse von GlassBlob.glb
+    setProgress(0.15 + 0.75 * Math.min(1, e.loaded / total));
+  });
+  blob = gltf.scene;
   blob.scale.setScalar(0.3);
   blob.position.set(0,0,0);
   //traverse goes through every object inseide the loaded model
@@ -54,4 +61,4 @@ onFrame((time) => {
   blob.visible = true;
   scene.background = null;
   renderer.setRenderTarget(null);
-});
+});

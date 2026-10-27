@@ -27,19 +27,20 @@ const scrollHint = document.getElementById('scroll-hint');
 const scrollDot  = document.getElementById('scroll-dot');
 const carousel   = document.getElementById('carousel');
 const track      = document.getElementById('carousel-track');
+const contact    = document.getElementById('contact');   // NEU: Kontaktseite nach dem Karussell
 
 const BASE = import.meta.env.BASE_URL;
 
 const PROJECTS = [
   
-  { num: '01 - Web', 
+  { num: 'Web', 
     name: 'Varia Bella', 
     desc: 'Eine kreative und persönliche Splashpage, die dieses Webportfolio einleitet. Gebaut mit Three.js und GSAP.', 
     color: '#cdd3d8', 
     img: `${BASE}pics/Webportfolio_Titelbild.png`,
     href: `${BASE}projekte/01Webportfolio.html` },
   
-  { num: '02 - UX', 
+  { num: 'UX', 
     name: 'HSLU Companion', 
     desc: 'Der treue Begleiter durch den Studienalltag an der HSLU.', 
     color: '#d8d3cc', 
@@ -47,16 +48,16 @@ const PROJECTS = [
     href: `${BASE}projekte/02HSLUCompanion.html`,
     scaleBoost: 1.5 },  
 
-  { num: '03 - UX/Web', 
+  { num: 'UX/Web', 
     name: 'Didaktikus', 
     desc: 'Ein KI-Agent für Lehrpersonen, konzipiert für die Unterrichtsplanung nach dem Lehrplan 21.', 
     color: '#d3ccd8', 
     img: `${BASE}pics/didaktikus_1024.png`,
     href: `${BASE}projekte/03Didaktikus.html` },
 
-    { num: '04 - UX', 
-    name: 'Sekundarstufe I', 
-    desc: 'Selbsterstelltes Unterrichtsmaterial und didaktische Konzepte, um differenzierten Unterricht auf der Sekundarstufe I zu ermöglichen.', 
+    { num: 'Pädagogik', 
+    name: 'Lernmaterial', 
+    desc: 'Unterrichtsmaterial und didaktische Konzepte, um differenzierten Unterricht auf der Sekundarstufe I zu ermöglichen.', 
     color: '#d3ccd8', 
     img: `${BASE}pics/Unterricht/muffo.png`,
     href: `${BASE}projekte/04Unterricht.html` },
@@ -109,13 +110,25 @@ function layoutCards(ca) {
     }
 
     const boost   = PROJECTS[i].scaleBoost || 1;   // ← neu: Standard 1, falls nicht gesetzt
-    const z       = rel < 0 ? 0 : -300 * rel;
-    const scale   = (1 - Math.max(0, rel) * 0.28) * boost;   // ← boost einmultipliziert
-    const opacity = rel < 0
-      ? Math.max(0, 1 + rel * 4)
-      : Math.max(0, 1 - rel * 1.2);
+//    const z       = rel < 0 ? 0 : -300 * rel;
+//    const scale   = (1 - Math.max(0, rel) * 0.28) * boost;   // ← boost einmultipliziert
+//    const opacity = rel < 0
+//      ? Math.max(0, 1 + rel * 4)
+//      : Math.max(0, 1 - rel * 1.2);
+//
+//    card.style.transform     = `translateZ(${z}px) scale(${scale})`;
+//    card.style.opacity       = String(opacity);
 
-    card.style.transform     = `translateZ(${z}px) scale(${scale})`;
+    // NEU: horizontal drehen – die aktive Karte dreht sich nach links weg,
+    // die nächste dreht sich von rechts herein (Drehung um die senkrechte Achse)
+    const w       = card.offsetWidth || 300;
+    const x       = rel * w * 0.9;                          // seitlich verschieben
+    const rotY    = -rel * 60;                              // um die senkrechte Achse drehen (Grad)
+    const z       = -Math.abs(rel) * 260;                   // nach hinten wegrücken
+    const scale   = boost;
+    const opacity = Math.max(0, 1 - abs * 1.3);             // nur während der Drehung sichtbar
+
+    card.style.transform     = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
     card.style.opacity       = String(opacity);
     card.style.pointerEvents = (carouselActive && abs < 0.3) ? 'auto' : 'none';
     card.style.zIndex        = String(Math.round(100 - abs * 10));
@@ -212,8 +225,19 @@ onScrollEnabled(() => {
     }
 
     const carouselProgress = Math.min(1, Math.max(0, (scroll.y - 0.6) / 0.4));
-    carousel.style.opacity = String(carouselProgress);
-    carouselActive = carouselProgress > 0.1;
+//    carousel.style.opacity = String(carouselProgress);
+//    carouselActive = carouselProgress > 0.1;
+
+    // NEU: KONTAKT – nach dem letzten Projekt weiterscrollen → Karussell blendet aus, Kontakt ein
+    const contactStart    = 1 + (N - 1) * 0.6 + 0.45;                                   // kurz nach dem letzten Projekt
+    const contactProgress = Math.min(1, Math.max(0, (scroll.y - contactStart) / 0.4));
+    carousel.style.opacity = String(carouselProgress * (1 - contactProgress));
+    carouselActive = carouselProgress > 0.1 && contactProgress < 0.5;
+    if (contact) {
+      contact.style.opacity       = String(contactProgress);
+      contact.style.transform     = `translateY(${(1 - contactProgress) * 40}px)`;
+      contact.style.pointerEvents = contactProgress > 0.6 ? 'auto' : 'none';
+    }
 
     const carouselScroll = Math.max(0, scroll.y - 1);
 
@@ -235,4 +259,4 @@ onScrollEnabled(() => {
 
     layoutCards(carouselAnim);
   });
-});
+});

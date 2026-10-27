@@ -77,14 +77,25 @@ const modell = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBl
         const len = Math.sqrt(BLOBS[i].x ** 2 + BLOBS[i].y ** 2) || 1;
         blob.userData.driftX = (BLOBS[i].x / len) * (1.5 + i * 0.2);   // stärker je weiter aussen
         blob.userData.driftY = (BLOBS[i].y / len) * (1.5 + i * 0.2);
+        blob.userData.dirX   = BLOBS[i].x / len;   // NEU: reine Richtung nach aussen (für den Kontakt)
+        blob.userData.dirY   = BLOBS[i].y / len;
     });
 
     onScrollEnabled(() => {
     onFrame(() => {
         const s = Math.min(1, Math.max(0, scroll.y));
+
+        // NEU: beim Kontakt fliegen die Blobs ganz aus dem Bild
+        // (gleicher Startpunkt wie contactStart in carousel.js: 1 + (Projekte - 1) * 0.6 + 0.45)
+        const contactStart    = 1 + (4 - 1) * 0.6 + 0.45;
+        const contactProgress = Math.min(1, Math.max(0, (scroll.y - contactStart) / 0.4));
+        const out = contactProgress * contactProgress * 14;      // Strecke nach aussen (beschleunigt)
+
         copies.forEach((blob) => {
-        const newX = blob.userData.baseX + blob.userData.driftX * s * 2;
-        const newY = blob.userData.baseY + blob.userData.driftY * s * 2;
+//        const newX = blob.userData.baseX + blob.userData.driftX * s * 2;
+//        const newY = blob.userData.baseY + blob.userData.driftY * s * 2;
+        const newX = blob.userData.baseX + blob.userData.driftX * s * 2 + blob.userData.dirX * out;   // NEU: + Weg aus dem Bild
+        const newY = blob.userData.baseY + blob.userData.driftY * s * 2 + blob.userData.dirY * out;
 
         blob.position.x = newX;
         blob.position.y = newY;
@@ -99,4 +110,4 @@ const modell = await loader.loadAsync(`${import.meta.env.BASE_URL}assets/GlassBl
     });
 
     return blobGroup;   //gibt Group zurück
-}
+}
