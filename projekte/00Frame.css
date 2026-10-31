@@ -280,3 +280,34 @@ p.prozess { display: block; }
 .prozess                       { font-size: var(--fs-m); }
 .footer                        { font-size: var(--fs-s); }
 
+/* ===== NEU: ABOUT ME + KONTAKT in der oberen Leiste ===== */
+.topbar .title {
+  position: absolute;                 /* Titel bleibt genau in der Mitte, auch mit den Knöpfen rechts */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* .topbar-right .counter { margin-right: 8px; } */   /* Zähler weggelassen */
+
+.topbar-btn {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-s);
+  text-decoration: none;
+  color: var(--strong);
+  border: 1px solid var(--strong);
+  border-radius: 999px;
+  padding: 6px 16px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.topbar-btn:hover { background: #F4F3EE; }
+.topbar-btn--dark { background: var(--strong); color: var(--bg); }
+.topbar-btn--dark:hover { background: #3A3934; }
+
