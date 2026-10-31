@@ -116,9 +116,16 @@ async function writeText(){
         if (slogan) slogan.style.opacity = String(Math.max(0, 1 - s * 2.5));
         if (roleLine) roleLine.style.opacity = String(Math.max(0, 1 - s * 2.5));   // NEU
         // NEU: About-me-Knopf blendet mit dem Slogan aus und ist dann nicht mehr klickbar
+//        if (aboutBtn) {
+//          aboutBtn.style.opacity = String(Math.max(0, 1 - s * 2.5));
+//          aboutBtn.classList.toggle('is-hidden', s > 0.3);
+//        }
+        // NEU: Knöpfe bleiben auch beim Karussell sichtbar, erst beim Kontakt blenden sie aus
+        // (contactStart wie in carousel.js: 1 + (4 Projekte - 1) * 0.6 + 0.45)
         if (aboutBtn) {
-          aboutBtn.style.opacity = String(Math.max(0, 1 - s * 2.5));
-          aboutBtn.classList.toggle('is-hidden', s > 0.3);
+          const navOut = Math.min(1, Math.max(0, (scroll.y - (1 + 3 * 0.6 + 0.45)) / 0.3));
+          aboutBtn.style.opacity = String(1 - navOut);
+          aboutBtn.classList.toggle('is-hidden', navOut > 0.7);
         }
         // NEU: Bild blendet beim Scrollen aus und gleitet leicht nach oben
         if (photo && photo.userData.ready) {

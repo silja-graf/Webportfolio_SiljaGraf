@@ -571,3 +571,191 @@ html body{
   .contact-meta     { font-size: var(--t-s); }
 }
 
+
+
+/* =====================================================================
+   NEU: KARUSSELL MIT DEVICE-VIDEOS
+   Querformat-Rahmen, damit Laptop- und Handy-Videos gleich gut Platz haben.
+   ===================================================================== */
+.proj-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;                /* ganzes Device sichtbar, nichts abgeschnitten */
+  display: block;
+  pointer-events: none;
+  background: transparent;
+  /* NEU: Maske (aus carousel.js) gleich skalieren wie das Video → Umriss sitzt exakt auf dem Gerät */
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+}
+
+.proj-card {
+  cursor: pointer;
+}
+
+/* Projekt-Tags unter der Beschreibung (wie auf den Projektseiten) */
+.info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;                   /* NEU: direkt unter dem Titel */
+  margin-bottom: 4px;
+}
+
+.info-tag {
+  font-family: 'Barlow Condensed', Arial, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+
+/* Punkte sind jetzt Knöpfe → anklickbar, mit etwas grösserer Klickfläche */
+#carousel-dots { pointer-events: auto; }
+
+.carousel-dot {
+  border: 0;
+  padding: 6px;
+  box-sizing: content-box;
+  background-clip: content-box;
+  cursor: pointer;
+}
+.carousel-dot.active { background-clip: content-box; }   /* sonst wird der aktive Punkt samt Klickfläche gefärbt */
+.carousel-dot:focus { outline: none; }
+.carousel-dot:focus-visible { outline: 2px solid rgba(0, 0, 0, 0.4); outline-offset: 2px; }
+
+@media (min-width: 901px) {
+  #carousel {
+    gap: max(56px, calc(16 * var(--u)));                 /* mehr Abstand, damit das rechte Nachbarprojekt nicht unter den Text ragt */
+  }
+
+  #carousel-track {
+    width: max(300px, calc(62 * var(--u)));              /* Querformat statt Hochformat */
+    height: max(220px, calc(44 * var(--u)));
+  }
+
+  #carousel-dots {
+    bottom: calc(50vh - 27 * var(--u));                  /* knapp unter dem neuen, flacheren Rahmen */
+  }
+
+/*  .info-tags { gap: max(6px, calc(0.9 * var(--u))); margin-top: max(10px, calc(1.6 * var(--u))); } */
+  .info-tags { gap: max(6px, calc(0.9 * var(--u))); margin-top: max(8px, calc(1.2 * var(--u))); margin-bottom: max(4px, calc(0.6 * var(--u))); }
+  .info-tag  { font-size: var(--t-s); padding: max(3px, calc(0.35 * var(--u))) max(10px, calc(1.3 * var(--u))); }
+}
+
+
+/* ===== NEU: KARUSSELL – Jahr, Tags näher am Titel, Bilder-Wechsel für Lernmaterial ===== */
+.info-name { margin-bottom: 0; }                          /* Tags direkt unter dem Projektnamen */
+
+.info-year {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Barlow Condensed', Arial, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.04em;
+}
+
+.proj-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.proj-slide {
+  position: absolute;
+  left: 5%;
+  top: 4%;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(27, 27, 24, 0.18));   /* Schatten folgt der Form des Blatts */
+  opacity: 0;
+  animation: projSlideFade 10.8s linear infinite;
+  animation-play-state: paused;                        /* läuft nur, wenn das Projekt aktiv ist */
+}
+.proj-slide:nth-child(1) { animation-delay: 0s; }
+.proj-slide:nth-child(2) { animation-delay: -7.2s; }
+.proj-slide:nth-child(3) { animation-delay: -3.6s; }
+.proj-card.is-playing .proj-slide { animation-play-state: running; }
+
+/* jedes Bild ~3 s sichtbar, 0.8 s Überblendung */
+@keyframes projSlideFade {
+  0%     { opacity: 1; }
+  25.9%  { opacity: 1; }
+  33.3%  { opacity: 0; }
+  92.6%  { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
+@media (min-width: 901px) {
+  .info-tags { margin-top: max(6px, calc(0.9 * var(--u))); }
+  .info-year { font-size: var(--t-s); margin-top: max(8px, calc(1.2 * var(--u))); }
+}
+
+
+
+/* =====================================================================
+   NEU: KARUSSELL-TEXT ÜBERARBEITET – klare Hierarchie, ruhiger Rhythmus
+     Bereich   klein, Grossbuchstaben, gesperrt (wie «UX · VERMITTLUNG · WEB»)
+     Name      gross und fett
+     Tags      klein und zurückhaltend
+     Text      angenehme Zeilenlänge (~45 Zeichen)
+     Jahr      klein, grau
+   ===================================================================== */
+@media (min-width: 901px) {
+  #carousel {
+    gap: max(64px, calc(19 * var(--u)));                  /* etwas mehr Luft zwischen Device und Text */
+  }
+
+  #carousel-info {
+    width: max(260px, calc(42 * var(--u)));
+  }
+
+  .info-num {
+    font-size: max(12px, calc(1.7 * var(--u)));
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .info-name {
+    font-size: max(26px, calc(5 * var(--u)));
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-top: max(4px, calc(0.6 * var(--u)));
+    margin-bottom: 0;
+  }
+
+  .info-tags {
+    gap: max(5px, calc(0.6 * var(--u)));
+    margin-top: max(8px, calc(1.4 * var(--u)));
+    margin-bottom: 0;
+  }
+
+  .info-tag {
+    font-size: max(12px, calc(1.5 * var(--u)));             /* kleiner als vorher */
+    padding: max(2px, calc(0.2 * var(--u))) max(8px, calc(0.9 * var(--u)));
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .info-desc {
+    font-size: max(16px, calc(2.6 * var(--u)));
+    line-height: 1.45;
+    margin-top: max(14px, calc(2.4 * var(--u)));
+    max-width: calc(40 * var(--u));
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .info-year {
+    font-size: max(12px, calc(1.5 * var(--u)));
+    letter-spacing: 0.08em;
+    margin-top: max(10px, calc(1.8 * var(--u)));
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
