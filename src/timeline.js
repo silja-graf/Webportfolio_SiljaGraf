@@ -14,6 +14,16 @@ export function buildTextTimeline(varia, bel, la, blob, silja, graf, photo){   /
 
 let timeline = gsap.timeline();
 
+// NEU: HANDY – im Hochformat ist der Bildschirm schmal → Kamera fürs Intro weiter weg,
+// damit VARIA BELLA ganz sichtbar ist. Beim Rausfliegen (Schritt 5) fährt sie zurück auf z = 9.
+const mobile = isMobileLayout();
+if (mobile) {
+    camera.position.z = introCameraZ();
+    // SILJA / GRAF warten weiter draussen, sonst sind sie bei der entfernten Kamera schon während des Intros sichtbar
+    silja.position.set(-8, -45, -1);
+    graf.position.set(8, 45, -1);
+}
+
 // --- POSITIONEN --- //
 let laDisToBel  = 6;        // Abstand BEL → LA (bilden zusammen BELLA)
 let belHorizPos = 5;        // x von BEL in "VARIA BELLA" (eine Zeile)
@@ -78,6 +88,8 @@ let deg10 = 10 * Math.PI / 180;     // 10° in RAD umgerechnet
     timeline.to(la.position,    {   y: -10,                        ease: "back.in", duration: 0.6 }, '<');
     //blob
     timeline.to(blob.scale,     {   x: 1, y: 1, z: 1,              ease: "back.in", duration: 0.4 }, '<');
+    // NEU: Handy – Kamera zurück an die normale Position (Desktop: steht schon bei 9, tut nichts)
+    if (mobile) timeline.to(camera.position, { z: 9,            ease: "power2.in", duration: 0.6 }, '<');
 
 
 // --- 6. BLOB-FELD + SILJA GRAF --- //
@@ -114,6 +126,7 @@ let deg10 = 10 * Math.PI / 180;     // 10° in RAD umgerechnet
 */
     // NEU: RESPONSIVE – alle Werte kommen aus computeTitleLayout() (unten), passend zum Bildschirmformat
     const L = computeTitleLayout(silja, graf);
+    setHtmlTitleLayout(L);                  // NEU: Handy – Slogan/Rollen-Zeile an die richtige Stelle
     const { nameScale, siljaX, grafX, siljaY, grafY, photoH, photoX, photoY, blobX, blobY, blobScale } = L;
 
     silja.userData.baseY = siljaY;          // Ausgangshöhe fürs Wegkippen (writeText.js)
@@ -281,6 +294,7 @@ const REF_ASPECT = 1.6;   // ab hier schmaler → verkleinern   (CSS: 0.625vw = 
 const MAX_ASPECT = 1.8;   // ab hier breiter → Layout nicht weiter auseinanderziehen (CSS: 180vh)
 
 export function computeTitleLayout(silja, graf) {
+    if (isMobileLayout()) return computeMobileTitleLayout(silja, graf);   // NEU: eigenes Layout fürs Handy
     const aspect     = window.innerWidth / window.innerHeight;
     const halfH      = Math.tan((camera.fov / 2) * Math.PI / 180) * 10;   // Wörter und Bild liegen bei z = -1, Kamera bei z = 9
     const halfW      = halfH * aspect;
@@ -322,4 +336,69 @@ export function applyTitleLayout(silja, graf, blob, photo) {
       photo.position.x = L.photoX;
       photo.userData.baseY = L.photoY;
     }
+    setHtmlTitleLayout(L);                                             // NEU: Slogan/Rollen-Zeile fürs Handy nachziehen
 }
+
+
+// ===================================================================================
+// NEU: HANDY-LAYOUT (Bildschirm bis 900 px breit)
+// Untereinander: Rollen-Zeile → SILJA / GRAF → Bild mit Blob → Slogan → «Zu meinen Arbeiten»
+// Die Grösse des Namens richtet sich nach der Breite, damit er nie abgeschnitten wird.
+// Slogan und Rollen-Zeile (HTML) werden über CSS-Variablen genau unter/über den 3D-Elementen platziert.
+// Desktop ist davon nicht betroffen.
+// ===================================================================================
+export function isMobileLayout() {
+    return window.matchMedia('(max-width: 900px)').matches;
+}
+
+// Kameraabstand fürs Intro, damit «VARIA BELLA» (ca. 28 Einheiten breit) ganz ins Bild passt
+function introCameraZ() {
+    const aspect = window.innerWidth / window.innerHeight;
+    const tanH   = Math.tan((camera.fov / 2) * Math.PI / 180);
+    const dist   = 14.5 / (tanH * aspect);            // Abstand zur Schrift (liegt bei z = -1)
+    return Math.max(9, dist - 1);
+}
+
+function computeMobileTitleLayout(silja, graf) {
+    const w          = window.innerWidth, h = window.innerHeight;
+    const aspect     = w / h;
+    const halfH      = Math.tan((camera.fov / 2) * Math.PI / 180) * 10;
+    const halfW      = halfH * aspect;
+    const pxPerUnit  = h / (2 * halfH);
+
+    const nameScale  = (2 * halfW * 0.62) / (silja.geometry.parameters.width * 0.89);   // SILJA ≈ 62 % der Breite
+    const nameW      = silja.geometry.parameters.width * nameScale * 0.89;
+    const grafW      = graf.geometry.parameters.width  * nameScale * 0.89;
+    const glyphH     = 0.59 * silja.geometry.parameters.height * nameScale;             // sichtbare Buchstabenhöhe
+    const left       = -halfW + 2 * halfW * 0.08;                                       // 8 % Rand links
+    const siljaX     = left + nameW / 2;
+    const grafX      = left + 2 * halfW * 0.14 + grafW / 2;                             // GRAF versetzt
+    const siljaY     = halfH * 0.56;                                                    // ca. 22 % von oben
+    const grafY      = siljaY - glyphH * 1.2;
+
+    let   photoH     = 2 * halfH * 0.30;                                                // Bild ≈ 30 % der Höhe
+    photoH           = Math.min(photoH, (2 * halfW * 0.62) / 0.8);                      // nicht breiter als 62 %
+    const photoX     = halfW * 0.12;
+    const photoY     = grafY - glyphH * 0.6 - 2 * halfH * 0.04 - photoH / 2;
+
+    const blobX      = photoX - photoH * 0.4 + 0.06;                                    // an der linken Bildkante
+    const blobY      = photoY - photoH * 0.29;
+    const blobScale  = 0.0208 * photoH;
+
+    // HTML-Positionen in Pixeln (y = 0 ist die Bildschirmmitte)
+    const toPx       = (y) => h / 2 - y * pxPerUnit;
+    const roleTop    = toPx(siljaY + glyphH / 2) - 30;
+    const sloganTop  = toPx(photoY - photoH / 2) + h * 0.03;
+
+    return { nameScale, siljaX, grafX, siljaY, grafY, photoH, photoX, photoY, blobX, blobY, blobScale,
+             mobile: true, roleTop, sloganTop };
+}
+
+// setzt die Positionen von Slogan und Rollen-Zeile fürs Handy (Desktop: CSS bestimmt alles)
+export function setHtmlTitleLayout(L) {
+    if (!L.mobile) return;
+    const root = document.documentElement.style;
+    root.setProperty('--m-role-top',   `${Math.round(L.roleTop)}px`);
+    root.setProperty('--m-slogan-top', `${Math.round(L.sloganTop)}px`);
+}
+

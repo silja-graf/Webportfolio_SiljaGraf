@@ -759,3 +759,97 @@ html body{
     color: rgba(0, 0, 0, 0.45);
   }
 }
+
+
+/* =====================================================================
+   NEU: HANDY (bis 900 px Breite) – Desktop bleibt unverändert
+   Titelseite untereinander, Karussell: Device oben, Text darunter,
+   links/rechts wischen wechselt das Projekt (carousel.js).
+   Slogan und Rollen-Zeile bekommen ihre Höhe aus timeline.js (--m-…-top).
+   ===================================================================== */
+@media (max-width: 900px) {
+
+  html, body {
+    overscroll-behavior: none;          /* kein «Nachziehen»/Neuladen beim Wischen */
+    touch-action: none;                 /* Wischen steuert die Seite, nicht der Browser */
+  }
+
+  /* --- Titelseite --- */
+  #top-nav {
+    top: 16px;
+    gap: 8px;
+  }
+
+  .top-btn {
+    font-size: 13px;
+    padding: 7px 15px;
+  }
+
+  #role-line {
+    left: 8vw;
+    top: var(--m-role-top, 14vh);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  #slogan {
+    left: 8vw;
+    right: 8vw;
+    top: var(--m-slogan-top, 72vh);
+    max-width: none;
+    white-space: nowrap;
+    font-family: 'Barlow Condensed', Arial, sans-serif;
+    font-weight: 300;
+    font-size: clamp(19px, 5.6vw, 28px);
+    line-height: 1.25;
+  }
+
+  /* «Zu meinen Arbeiten» waagrecht unten in der Mitte */
+  #scroll-hint {
+    top: auto;
+    right: auto;
+    bottom: 3.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    gap: 4px;
+  }
+  #scroll-hint span { writing-mode: horizontal-tb; }
+  #scroll-hint svg  { width: 14px; height: 14px; }
+
+  /* --- Karussell --- */
+  #carousel {
+    flex-direction: column;
+    justify-content: center;
+    gap: 4vh;
+    padding: 0 7vw;
+  }
+
+  #carousel-track {
+    width: 86vw;
+    height: 30vh;
+  }
+
+  #carousel-info {
+    width: 86vw;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .info-num  { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.4); }
+  .info-name { font-size: clamp(26px, 7.5vw, 36px); line-height: 1.05; margin-top: 4px; margin-bottom: 0; }
+  .info-tags { gap: 5px; margin-top: 8px; }
+  .info-tag  { font-size: 12px; padding: 2px 8px; }
+  .info-desc { font-size: clamp(16px, 4.4vw, 20px); line-height: 1.4; margin-top: 12px; color: rgba(0,0,0,0.6); }
+  .info-year { font-size: 12px; margin-top: 8px; }
+
+  #carousel-dots {
+    bottom: 6vh;
+    gap: 6px;
+  }
+
+  /* --- Kontakt --- */
+  #contact { padding: 0 8vw; }
+  .contact-title { font-size: clamp(40px, 12vw, 60px); }
+  .contact-btn   { font-size: 14px; padding: 12px 20px; }
+}

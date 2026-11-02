@@ -373,6 +373,26 @@ window.addEventListener('keydown', (e) => {
   goToProject(idx + (next ? 1 : -1));
 });
 
+// NEU: HANDY – im Karussell nach links/rechts wischen wechselt das Projekt
+//      (nach oben/unten wischen scrollt wie bisher über scrollState.js)
+let swipeX = null, swipeY = null;
+window.addEventListener('touchstart', (e) => {
+  if (e.touches.length !== 1) { swipeX = null; return; }
+  swipeX = e.touches[0].clientX;
+  swipeY = e.touches[0].clientY;
+}, { passive: true });
+window.addEventListener('touchend', (e) => {
+  if (swipeX === null) return;
+  const t  = e.changedTouches[0];
+  const dx = t.clientX - swipeX;
+  const dy = t.clientY - swipeY;
+  swipeX = null;
+  if (scrollLocked || isExiting || !carouselActive) return;
+  if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;   // nur deutlich waagrechte Wischer
+  const idx = Math.round(carouselAnim);
+  goToProject(idx + (dx < 0 ? 1 : -1));                                 // nach links wischen → nächstes Projekt
+}, { passive: true });
+
 // NEU: Kontakt-Knopf oben (index.html) → weich ans Ende zur Kontaktseite scrollen
 document.getElementById('contact-jump')?.addEventListener('click', (e) => {
   e.preventDefault();
