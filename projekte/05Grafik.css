@@ -1,0 +1,190 @@
+@import "00Frame.css";
+
+/* =====================================================================
+   05 GRAFIK – Galerie-Grid (Masonry)
+   Alles liegt direkt im Grid (auch Prozessbilder) – keine Unterseiten.
+   Jede Kachel behält ihr Seitenverhältnis: Das kleine Script unten in
+   05Grafik.html rechnet aus width/height des Bildes aus, wie hoch sie wird.
+     .w--wide        = 2 Spalten breit
+     .work-row       = Reihe, alle Bilder gleich hoch
+   ===================================================================== */
+
+/* ===== GESAMTBREITE =====
+   Schmaler als die anderen Projektseiten, damit eine Arbeit immer ganz
+   auf den Bildschirm passt (Höhe = Fensterhöhe minus Kopfzeile).
+   --fit = Breite/Höhe der höchsten Arbeit (Maturafeier ≈ 1.4).
+   Grösser = breiter, kleiner = schmaler. */
+.grafik-main {
+  --fit: 1.4;
+  max-width: min(100%, calc((100vh - 200px) * var(--fit)));
+  margin: 0 auto;
+}
+
+/* ===== ARBEITS-GRUPPEN =====
+   Jede Arbeit = eigener Block (.work-group) mit eigenem Grid.
+   Hauptbild gross (.w--wide), Prozess klein daneben.
+   .work-group--flip = Hauptbild rechts statt links (Abwechslung). */
+.work-group { margin-top: clamp(40px, 7vh, 88px); }
+.work-group:first-child { margin-top: clamp(28px, 5vh, 48px); }
+.work-group .eyebrow {
+  display: flex;
+  gap: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.work-group .eyebrow b { color: var(--text-muted); font-weight: 500; }   /* Titel dezent grau → Bilder stehen im Vordergrund */
+
+@media (min-width: 1101px) {
+  .work-group--flip .work:first-child { grid-column: 3 / span 2; }
+}
+
+/* ===== GRID ===== */
+.grafik-grid {
+  --gap: clamp(8px, 1vw, 14px);
+  --row: 4px;                      /* Feinraster für die Höhen */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: var(--row);
+  grid-auto-flow: dense;           /* füllt Lücken auf */
+  column-gap: var(--gap);
+  row-gap: 0;                      /* Abstand unten macht margin-bottom der Kachel */
+}
+
+.w--wide { grid-column: span 2; }
+
+/* ===== KACHEL ===== */
+.work {
+  position: relative;
+  margin: 0 0 var(--gap);
+  overflow: hidden;
+  background: #EEECE2;
+  outline: none;
+  grid-row-end: span 60;           /* Fallback ohne Script */
+}
+
+.work img,
+.work video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.work:hover img,
+.work:hover video,
+.work:focus-visible img,
+.work:focus-visible video { transform: scale(1.03); }
+
+/* Ohne Info-Schicht (Prozessbilder, schmale Hochformate): kein Zoom */
+.work--plain:hover img,
+.work--plain:hover video { transform: none; }
+
+/* ===== HOVER-SCHICHT ===== */
+.work figcaption {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(14px, 1.6vw, 22px);
+  background: rgba(60, 59, 54, 0.62);     /* graue, transparente Schicht */
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.work:hover figcaption,
+.work:focus figcaption,
+.work:focus-within figcaption { opacity: 1; }
+
+.work-title {
+  font-size: var(--fs-m);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Auftraggeber / Entstehungsort */
+.work-context {
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: -2px 0 4px;
+  opacity: 0.9;
+}
+
+.work .tags { margin: 0; }
+.work .tag {
+  color: var(--bg);
+  border-color: rgba(254, 255, 245, 0.55);
+  font-size: 13px;
+  padding: 2px 10px;
+}
+
+.work-year {
+  font-family: "Outfit", sans-serif;
+  font-size: var(--fs-s);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* ===== REIHE MIT GLEICHER HÖHE =====
+   .work-row: alle Bilder einer Reihe gleich hoch, zusammen volle Breite.
+   --r = Seitenverhältnis (Breite/Höhe), setzt das Script automatisch. */
+.work-row {
+  --gap: clamp(8px, 1vw, 14px);
+  display: flex;
+  align-items: flex-start;         /* nichts strecken → Bilder bleiben vollständig */
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+.work-row .work {
+  flex: var(--r, 1) 1 0;
+  aspect-ratio: var(--r, 1);
+  min-width: 0;
+  margin: 0;
+}
+
+/* ===== HAUPTBILD + STAPEL =====
+   .work-stack: erstes Bild gross links, die weiteren rechts übereinander. */
+.work-stack {
+  --gap: clamp(8px, 1vw, 14px);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap);
+}
+.work-stack .work { margin: 0; aspect-ratio: 1; grid-row: auto; }
+.work-stack .work:first-child { grid-row: span 2; aspect-ratio: auto; }
+.work-stack .work:first-child img,
+.work-stack .work:first-child video { position: absolute; inset: 0; }   /* füllt die Höhe des Stapels */
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .grafik-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .grafik-main { max-width: 100%; }
+  .grafik-grid { grid-template-columns: repeat(2, 1fr); }
+  .work-row { flex-wrap: wrap; }
+  .work-row .work { flex: 1 1 calc(50% - var(--gap)); }   /* Handy: 2 pro Zeile */
+  .work-row .work.is-pano { flex-basis: 100%; }            /* Panorama: ganze Breite */
+}
+
+/* Touch-Geräte ohne Hover: Titel, Kontext und Jahr unten, immer sichtbar */
+@media (hover: none) {
+  .work figcaption {
+    opacity: 1;
+    inset: auto 0 0 0;
+    gap: 2px;
+    padding: 24px 12px 10px;
+    background: linear-gradient(transparent, rgba(40, 39, 35, 0.75));
+  }
+  .work .tags { display: none; }
+  .work-title { font-size: 15px; }
+  .work-context { font-size: 12px; margin: 0; }
+  .work-year { font-size: 12px; }
+}
