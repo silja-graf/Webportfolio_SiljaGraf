@@ -120,6 +120,19 @@ const PROJECTS = [
       `${BASE}vid/carousel/carousel_lern_muffo.webp`,
     ],
     href: `${BASE}projekte/04Unterricht.html` },
+
+  // NEU: Grafische Arbeiten – drei Beispiele blenden ineinander über (wie Lernmaterial)
+  { num: 'Grafik',
+    name: 'Grafische Arbeiten',
+    desc: 'Flyer, Einladungen, Infografiken, Fotografie und Malerei – vom ersten Entwurf bis zum fertigen Werk.',
+    tags: ['Flyer', 'Fotografie', 'Malerei'],
+    year: '2020–2026',
+    slides: [
+      `${BASE}vid/carousel/carousel_grafik_matinee.webp`,
+      `${BASE}vid/carousel/carousel_grafik_matura.webp`,
+      `${BASE}vid/carousel/carousel_grafik_fawkes.webp`,
+    ],
+    href: `${BASE}projekte/05Grafik.html` },
 ];
 
 const N = PROJECTS.length;

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Grosse Originaldateien (z. B. Guy-Fawkes-TIFs) nicht hochladen – die Website nutzt die WebP-Versionen in public/pics/Grafik/web/
+*.tif
+*.tiff

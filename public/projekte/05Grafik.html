@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grafische Arbeiten</title>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="05Grafik.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="logo-group">
+      <svg class="topbar-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      <a class="logo" href="/index.html">SG</a>
+    </div>
+    <span class="title">Grafische Arbeiten</span>
+    <div class="topbar-right">
+      <a class="topbar-btn" href="../about.html">About me</a>
+      <a class="topbar-btn topbar-btn--dark" href="../index.html" onclick="sessionStorage.setItem('scrollY', '3.7')">Kontakt</a>
+    </div>
+  </div>
+
+  <div class="nav-zone nav-zone--left">
+    <a class="nav-arrow" href="04Unterricht.html" aria-label="Vorheriges Projekt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+  </div>
+  <div class="nav-zone nav-zone--right">
+    <a class="nav-arrow" href="01Webportfolio.html" aria-label="Nächstes Projekt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+
+  <!-- =================================================================
+       Jede Arbeit = <section class="work-group"> mit eigenem Grid.
+       • <div class="work-row">   → Bilder nebeneinander, alle gleich hoch
+       • <div class="grafik-grid"> → Mosaik: erstes Bild gross (w--wide),
+                                     Prozess klein daneben
+       • work-group--flip → beim Mosaik Hauptbild rechts
+       • width/height = echte Pixelmasse des Bildes
+       • work-context / work-year leer lassen → Zeile fällt weg
+       Reihenfolge: neu oben, alt unten, Zeichnungen am Schluss.
+       ================================================================= -->
+  <main class="grafik-main">
+
+  <!-- ===== 2026 Matineekonzert mit Brunch ===== -->
+  <section class="work-group">
+    <p class="eyebrow"><b>Matineekonzert mit Brunch</b></p>
+    <div class="work-stack">
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/matinee-vorderseite.webp" width="1600" height="1600" alt="Flyer Matineekonzert, Vorderseite" loading="lazy">
+        <figcaption>
+          <p class="work-title">Flyer Matineekonzert mit Brunch</p>
+          <p class="work-context">Auftragsarbeit · Blasorchester Rain</p>
+          <div class="tags"><span class="tag">Canva</span></div>
+          <p class="work-year">2026</p>
+        </figcaption>
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/matinee-prozess2.webp" width="1600" height="1600" alt="Skizzenhafter Entwurf mit Notizen" loading="lazy">
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/matinee-prozess1.webp" width="1600" height="1600" alt="Entwurf mit Foto und Farbflächen" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== 2025 Infografiken ===== -->
+  <section class="work-group">
+    <p class="eyebrow"><b>Infografiken</b></p>
+    <div class="work-row">
+      <figure class="work" tabindex="0">
+        <video src="/pics/Grafik/Final_Stress-Mood-Infografik_2025.mp4" width="842" height="596" autoplay muted loop playsinline aria-label="Animierte Infografik zu Stress und Stimmung"></video>
+        <figcaption>
+          <p class="work-title">Infografik Stress im Verhältnis zur Laune</p>
+          <p class="work-context">Hochschularbeit · HSLU</p>
+          <div class="tags"><span class="tag">Adobe After Effects</span><span class="tag">Adobe Illustrator</span></div>
+          <p class="work-year">2025</p>
+        </figcaption>
+      </figure>
+      <figure class="work" tabindex="0">
+        <video src="/pics/Grafik/Final_persönlicherKaffeekonsumInfografik_2025.mp4" width="842" height="596" autoplay muted loop playsinline aria-label="Animierte Infografik zum persönlichen Kaffeekonsum"></video>
+        <figcaption>
+          <p class="work-title">Infografik Kaffeekonsum durch das Semester</p>
+          <p class="work-context">Hochschularbeit · HSLU</p>
+          <div class="tags"><span class="tag">Adobe After Effects</span><span class="tag">Adobe Illustrator</span></div>
+          <p class="work-year">2025</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== 2020 Vom Wirken und Wirkenlassen einer Maske ===== -->
+  <section class="work-group">
+    <p class="eyebrow"><b>Vom Wirken und Wirkenlassen einer Maske</b></p>
+    <div class="work-row">
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/guyfawkes3.webp" width="1600" height="1067" alt="Silhouette einer Frau vor einer Guy-Fawkes-Maske in blauem Licht" loading="lazy">
+        <figcaption>
+          <p class="work-title">Vom Wirken und Wirkenlassen einer Maske</p>
+          <p class="work-context">Maturaarbeit<br>Kantonsschule Beromünster</p>
+          <div class="tags"><span class="tag">Fotografie</span><span class="tag">Inszenierung</span></div>
+          <p class="work-year">2020</p>
+        </figcaption>
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/guyfawkes1.webp" width="1067" height="1600" alt="Guy-Fawkes-Maske im Wasser" loading="lazy">
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/guyfawkes2.webp" width="1067" height="1600" alt="Zwei Guy-Fawkes-Masken im Dunkeln" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- =====  Analoge Arbeiten ===== -->
+  <section class="work-group">
+    <p class="eyebrow"><b>Analoge Arbeiten</b></p>
+    <div class="work-row">
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/fuesse-aquarell.webp" width="1600" height="1533" alt="Aquarell von Füssen" loading="lazy">
+        <figcaption>
+          <p class="work-title">Barfuss</p>
+          <div class="tags"><span class="tag">Aquarell</span></div>
+        </figcaption>
+      </figure>
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/portrait-leuchten.webp" width="1037" height="1452" alt="Portrait in weisser Kreide auf dunklem Grund" loading="lazy">
+        <figcaption>
+          <p class="work-title">Leuchten</p>
+          <div class="tags"><span class="tag">Kreide</span></div>
+        </figcaption>
+      </figure>
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/portrait-unterkuehlung.webp" width="715" height="1001" alt="Portrait in Blautönen mit Ölpastell" loading="lazy">
+        <figcaption>
+          <p class="work-title">Unterkühlung</p>
+          <div class="tags"><span class="tag">Ölpastell</span></div>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="work-row">
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/turnschuhe-acryl.webp" width="1600" height="1143" alt="Acrylbild von roten Turnschuhen" loading="lazy">
+        <figcaption>
+          <p class="work-title">Ausgetreten</p>
+          <div class="tags"><span class="tag">Acryl</span></div>
+        </figcaption>
+      </figure>
+      <figure class="work" tabindex="0">
+        <img src="/pics/Grafik/web/geschirr-aquarell.webp" width="1262" height="355" alt="Aquarell von Krügen und Geschirr" loading="lazy">
+        <figcaption>
+          <p class="work-title">Durchscheinend</p>
+          <div class="tags"><span class="tag">Aquarell</span></div>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== 2021 Einladung Maturafeier 2021 ===== -->
+  <section class="work-group work-group--flip">
+    <p class="eyebrow"><b>Einladung Maturafeier 2021</b></p>
+    <div class="grafik-grid">
+      <figure class="work w--wide" tabindex="0">
+        <img src="/pics/Grafik/web/maturafeier-final.webp" width="835" height="1169" alt="Einladungskarte Maturafeier 2021" loading="lazy">
+        <figcaption>
+          <p class="work-title">Offizielle Einladung<br>zur Maturafeier 2021</p>
+          <p class="work-context">Kantonsschule Beromünster</p>
+          <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Illustration</span></div>
+          <p class="work-year">2021</p>
+        </figcaption>
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/maturafeier-prozess1.webp" width="842" height="1179" alt="Entwurf mit blauem Vogel" loading="lazy">
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/maturafeier-prozess2.webp" width="841" height="1177" alt="Entwurf mit Seifenblase auf gelbem Grund" loading="lazy">
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/maturafeier-prozess3.webp" width="838" height="1173" alt="Entwurf mit geometrischem Hintergrund" loading="lazy">
+      </figure>
+      <figure class="work work--plain">
+        <img src="/pics/Grafik/web/maturafeier.webp" width="842" height="1179" alt="Entwurf mit Seifenblase und gelber Schrift" loading="lazy">
+      </figure>
+    </div>
+  </section>
+  </main>
+
+  <div class="footer" style="margin-top: clamp(32px, 6vh, 64px);">
+    <span>&nbsp;2020–2026</span>
+    <span>Auftragsarbeiten, Schul- und private Projekte</span>
+  </div>
+
+</div>
+
+<script>
+/* Pfeile links/rechts einblenden */
+(function () {
+  var leftZone = document.querySelector('.nav-zone--left');
+  var rightZone = document.querySelector('.nav-zone--right');
+  var threshold = 220;
+  window.addEventListener('mousemove', function (e) {
+    if (leftZone) leftZone.classList.toggle('is-near', e.clientX < threshold);
+    if (rightZone) rightZone.classList.toggle('is-near', e.clientX > window.innerWidth - threshold);
+  });
+})();
+
+/* Bildverhältnisse aus der echten Datei lesen (Fallback: width/height im HTML) */
+(function () {
+  function ratio(m) {
+    var w = m.naturalWidth || m.videoWidth || +m.getAttribute('width');
+    var h = m.naturalHeight || m.videoHeight || +m.getAttribute('height');
+    return (w && h) ? w / h : 1;
+  }
+
+  /* Reihen: alle gleich hoch → jede Kachel bekommt ihr Seitenverhältnis */
+  function rows() {
+    document.querySelectorAll('.work-row .work').forEach(function (work) {
+      var r = ratio(work.querySelector('img, video'));
+      work.style.setProperty('--r', r);
+      work.classList.toggle('is-pano', r > 2);   /* sehr breite Bilder: auf dem Handy volle Breite */
+    });
+  }
+
+  /* Mosaik: Kachelhöhe aus dem Seitenverhältnis */
+  function mosaic() {
+    document.querySelectorAll('.grafik-grid').forEach(function (grid) {
+      var cs = getComputedStyle(grid);
+      var row = parseFloat(cs.gridAutoRows) || 4;
+      var gap = parseFloat(cs.columnGap) || 0;
+      grid.querySelectorAll('.work').forEach(function (work) {
+        var height = work.getBoundingClientRect().width / ratio(work.querySelector('img, video'));
+        work.style.gridRowEnd = 'span ' + Math.round((height + gap) / row);
+      });
+    });
+  }
+
+  function layout() { rows(); mosaic(); }
+
+  /* Videos: sicher stumm in Endlosschleife abspielen */
+  document.querySelectorAll('.work video').forEach(function (v) {
+    v.muted = true; v.loop = true; v.playsInline = true;
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+    v.addEventListener('ended', function () { v.currentTime = 0; v.play(); });
+  });
+  layout();
+  window.addEventListener('resize', mosaic);
+  document.querySelectorAll('.work img, .work video').forEach(function (m) {
+    m.addEventListener('load', layout);
+    m.addEventListener('loadedmetadata', layout);
+  });
+})();
+</script>
+</body>
+</html>
