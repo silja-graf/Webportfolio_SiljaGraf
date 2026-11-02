@@ -111,3 +111,53 @@
   font-size: var(--fs-s);                  /* NEU */
   padding: 9px 18px;
 }
+
+/* ===== NEU: TECHNISCHE KENNTNISSE – Icons mit Namen darunter ===== */
+.skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);       /* alle sieben in einer Reihe */
+  gap: 22px 8px;
+}
+
+.skill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  color: var(--strong);
+}
+
+.skill svg {
+  width: clamp(34px, 3vw, 46px);
+  height: clamp(34px, 3vw, 46px);
+}
+
+.skill span {
+  font-size: var(--fs-s);
+  line-height: 1.25;
+  color: #4A4842;
+}
+
+
+/* ===== NEU: HANDY (bis 900 px Breite) ===== */
+@media (max-width: 900px) {
+  .about-photo {
+    max-width: 240px;
+    margin: 6px auto 20px;
+  }
+  .strengths {
+    grid-template-columns: 1fr;         /* UX / Vermittlung / Web untereinander */
+    gap: 26px;
+  }
+  .skills {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px 6px;
+  }
+  .skill svg { width: 34px; height: 34px; }
+  .cv li { gap: 14px; }
+  .cv .cv-year { flex: 0 0 76px; }
+}
