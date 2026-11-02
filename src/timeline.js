@@ -5,8 +5,8 @@ import { camera } from "./scene/stage.js";   // NEU: für das Endlayout (Bildsch
 
 // =====================================================================
 //  INTRO-TIMELINE (aktuelle Version)
-//  Ablauf: VARIABEL → VARIA BELLA → VARIA BELLA versetzt
-//          → VARIA über BELLA → rausfliegen → SILJA / GRAF versetzt + Slogan, rechts Bild mit Blob
+//  Ablauf: VARIABEL → VARIA BELLA → VARIA hoch / BELLA runter
+//          → VARIA über BELLA (zentriert) → rausfliegen → SILJA / GRAF versetzt + Slogan, rechts Bild mit Blob
 //  Dauer ca. 5,5 s. Die ursprüngliche Timeline steht unten auskommentiert.
 // =====================================================================
 
@@ -47,6 +47,7 @@ let deg10 = 10 * Math.PI / 180;     // 10° in RAD umgerechnet
     timeline.to(blob.rotation,  {   x: deg10,                        duration: 0.4 }, '<');
 
 
+/* ALT: versetzte Zwischenposition – weggelassen, VARIA/BELLA gehen direkt in die zentrierte Endposition
 // --- 3. VARIA BELLA VERSETZT --- //
 // VARIA oben links, BELLA unten rechts
     timeline.to(varia.position, {   x: variaOffsetX,               ease: "back.inOut", duration: 0.7 });
@@ -57,9 +58,13 @@ let deg10 = 10 * Math.PI / 180;     // 10° in RAD umgerechnet
     timeline.to(blob.scale,     {   x: 0.3, y: 0.3, z: 0.3,        ease: "elastic.out(1, 0.3)", duration: 1, delay: 0.2 }, '<');
 
 
+*/
+
 // --- 4. ENDPOSITION: VARIA ÜBER BELLA --- //
 // delay zählt ab Start des Blob-Federns (Zeile oben) → kurze Lesepause in der versetzten Position
-    timeline.to(bel.position,   {   x: belEndX,                    ease: "back.inOut", duration: 0.5, delay: 0.95 }, '<');
+//    timeline.to(bel.position,   {   x: belEndX,                    ease: "back.inOut", duration: 0.5, delay: 0.95 }, '<');
+// NEU: folgt direkt auf Schritt 2 (kurze Pause 0.15 s), da die versetzte Position wegfällt
+    timeline.to(bel.position,   {   x: belEndX,                    ease: "back.inOut", duration: 0.5, delay: 0.15 });
     timeline.to(la.position,    {   x: belEndX + laDisToBel,       ease: "back.inOut", duration: 0.5 }, '<');
     timeline.to(varia.position, {   x: variaEndX,                  ease: "back.inOut", duration: 0.5 }, '<');
     //blob: nur strecken, KEIN Nachfedern → sonst stockt er beim Wachsen in Schritt 5
